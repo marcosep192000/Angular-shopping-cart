@@ -1,0 +1,51 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 300px;
+  color: white;
+  background-color:#653dab;
+}
+
+.sidenav .productos-link .color{
+  
+  color: white;
+ 
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+  background-color: #522e92;
+  color:white;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+}
+.color{
+  color: white;
+  text-decoration: none;
+  font-size: 1.4em ;
+  text-align: center;
+  height: 120px;
+}
+
+.material-icons{
+
+  margin-right: 5px;
+}
+
+.sidenav__list{
+  list-style: none;
+}
+
+.list__item{
+  margin: 0;
+  height: 60px ;
+  background-color: red ;
+  border-radius: 1px ;
+}
