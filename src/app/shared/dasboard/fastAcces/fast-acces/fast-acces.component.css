@@ -2,13 +2,14 @@
     background: #532e926b;
     border-radius: 20px;
     width: 70%;
-   padding: 0px;
-   margin: 0px;  
+   
+   margin-top: auto;
+   
 }
 
 .container__titulo{
     color :white;
-    font-size: larger;
+    font-size:x-large;
     text-align: center;
     padding-top: 10px ;
    
@@ -35,7 +36,7 @@ margin: 0;
   color: white;  
   background-color: #522e92 ;
   border-radius: 20px;
-  margin: 10px 30px ;
+  margin: 0px 30px ;
   width: 100px ;
   height: 100px;
 }
