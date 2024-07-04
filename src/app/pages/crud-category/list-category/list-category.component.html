@@ -1,19 +1,37 @@
+
+
+
+<div class="container__serch">
+     <div class="container__serch">
+         <input  class="search__input" placeholder="Ingresa la categoria a buscar" type="text"  ngModel=""  (keyup)="applyFilter($event)" value="text">
+     </div>
+ <!--   
+     <div class="actions__btn">
+         <button class="actions__btn  btn__search">Buscar</button>
+     </div> -->
+
+    <div class="actions__btn">
+        <button class="actions__btn  btn__new" (click)="createCategory()">agregar</button>
+    </div>
+
+ 
+
+
+
+ </div>
+
 <div class="mat-elevation-z8">
-
-
-
-
     <table mat-table [dataSource]="dataSource" class="table">
 
         <!-- Position Column -->
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> id</th>
+            <th mat-header-cell *matHeaderCellDef> CODIGO</th>
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="descriptionCategory">
-            <th mat-header-cell *matHeaderCellDef> descripciion </th>
+            <th mat-header-cell *matHeaderCellDef> DETALLE </th>
             <td mat-cell *matCellDef="let element"> {{element.descriptionCategory}}</td>
         </ng-container>
 
@@ -22,15 +40,19 @@
             <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
             <td mat-cell *matCellDef="let element">
 
-
+                <div class="container__accions">
                 <div class="example-button-row">
-                    <button mat-flat-button color="primary">Actualizar</button>
+                    <button mat-fab class="btn__update" aria-label="Example icon button with a delete icon">
+                        <mat-icon>update</mat-icon>
+                    </button>
                 </div>
-
-                <div class="example-button-row">
-                    <button mat-flat-button color="dannger">Eliminar</button>
+                   
+                    <div class="example-button-row">
+                        <button mat-fab class="btn__delete" (click)="deleteCategory(element.id)" aria-label="Example icon button with a delete icon">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
                 </div>
-
 
             </td>
         </ng-container>
@@ -43,6 +65,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 6,10]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSizeOptions]="[5,8]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>

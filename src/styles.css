@@ -3,3 +3,29 @@ html, body { height: 100%;
  }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 html{background-color: red;}
+
+/* BOTONES */
+ .actions__btn {
+    margin: 5px 5px; 
+    padding: 10px 10px ;
+    border-radius: 10px;
+ }
+.btn__update {
+  background-color:#522e92 ;
+  
+    color: white;   
+}
+.btn__delete{
+    background-color:rgb(223, 20, 20);
+    color: white;
+}
+.btn__serch{background-color: #522e92;
+color: white;
+}
+
+.btn__new{
+  background-color: #522e92;
+  color:white;
+}
+/*  TEXTOS   */
+
