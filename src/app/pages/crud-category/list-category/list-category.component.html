@@ -42,7 +42,7 @@
 
                 <div class="container__accions">
                 <div class="example-button-row">
-                    <button mat-fab class="btn__update" aria-label="Example icon button with a delete icon">
+                    <button mat-fab class="btn__update" (click)="updateCategory(element.id)" aria-label="Example icon button with a delete icon">
                         <mat-icon>update</mat-icon>
                     </button>
                 </div>

@@ -7,12 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormCategoryComponent } from '../form-category/form-category/form-category.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
-import { response } from 'express';
-
+import { DialogRef } from '@angular/cdk/dialog';
+ 
 @Component({
   selector: 'app-list-category',
   standalone: true,
@@ -47,7 +47,7 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
   }
 
   constructor(
-    private CategoryService: CategoryService,
+    private categoryService: CategoryService,
     public dialog: MatDialog
   ) {}
 
@@ -56,14 +56,47 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
   }
 
   getCategories(): void {
-    this.CategoryService.getCategories().subscribe((categories) => {
+    this.categoryService.getCategories().subscribe((categories) => {
       this.dataSource.data = categories;
       console.log();
     });
   }
 
   createCategory() {
-    this.dialog.open(FormCategoryComponent);
+    const dialogRef = this.dialog.open(FormCategoryComponent, {
+      disableClose: true,
+      width: '250px',
+      height: 'auto',
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        tipo: 'createCategory',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getCategories();
+    });
+  }
+  updateCategory(id: number) {
+   
+    const dialogRef = this.dialog.open(FormCategoryComponent, {
+      disableClose: true,
+      width: '450px',
+      height: '550px',
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        tipo: 'updateCategory',
+        idCategory: id,
+      },
+    }); 
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getCategories();
+    });
   }
 
   applyFilter(event: Event) {
@@ -76,10 +109,9 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
   }
 
   deleteCategory(id: number): void {
-    this.CategoryService.deleteCategory(id).subscribe(() => {
-      this.getCategories(); // Recarga la lista de categorías después de eliminar
+    this.categoryService.deleteCategory(id).subscribe(() => {
+      this.getCategories();
     });
   }
 }
-
 
