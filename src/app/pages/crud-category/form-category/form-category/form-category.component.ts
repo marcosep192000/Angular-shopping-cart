@@ -49,49 +49,39 @@ export class FormCategoryComponent implements OnInit {
     this.categoryService
       .createCategory(this.formGroup.value)
       .subscribe((data) => {
-        console.log(data + 'cready saved');
-        this.dialogRef.close();
+        console.log(data + ' created and saved');
+        this.dialogRef.close(data);
       });
   }
 
-  update(id: number): void {
-    if (this.data.idCategory != null) {
-      this.categoryService.finById(this.data.idCategory).subscribe((data) => {
-        console.log(data.id);
-        this.fb.group({
-          nameCategory: data.nameCategory,
-          descriptionCategory: data.descriptionCategory,
-        });
-        this.dialogRef.close(data);
-      });
-    }
+  update(): void {
+  
+    this.categoryService.updateCategory(this.data.idCategory,this.formGroup.value).subscribe((data) => {
+      console.log(data + ' updated', this.data.idCategory);
+      this.dialogRef.close(data);
+    });
   }
 
   initForm() {
     if (this.data.idCategory != null) {
-     
       this.categoryService.finById(this.data.idCategory).subscribe((datos) => {
-      
-
-
-        
-   
-      this.formGroup = this.fb.group({
-        nameCategory: [
-          { value: datos.nameCategory, disabled: false },
-          [Validators.required, Validators.minLength(6)],
-        ],
-        descriptionCategory: [
-          { value: datos.descriptionCategory, disabled: false },
-          [Validators.required, Validators.minLength(6)],
-        ],
+        this.formGroup = this.fb.group({
+          nameCategory: [
+            { value: datos.nameCategory, disabled: false },
+            [Validators.required, Validators.minLength(6)],
+          ],
+          descriptionCategory: [
+            { value: datos.descriptionCategory, disabled: false },
+            [Validators.required, Validators.minLength(6)],
+          ],
+        });
       });
-
- })
-
     }
-
-
-
+    else {
+      this.formGroup = this.fb.group({
+        nameCategory: ['', [Validators.required, Validators.minLength(6)]],
+        descriptionCategory: ['', [Validators.required, Validators.minLength(6)]],
+      });
+    }
   }
 }
