@@ -11,7 +11,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { FormCategoryComponent } from '../form-category/form-category/form-category.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
-import { DialogRef } from '@angular/cdk/dialog';
+
  
 @Component({
   selector: 'app-list-category',
@@ -51,6 +51,17 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
     public dialog: MatDialog
   ) {}
 
+  /* prueba de genericos */
+  pruebaDialogGenerico() {
+ /*   const dialogRef = this.dialog.open() */
+
+
+
+
+  };
+
+  /* fin prueba de genericos */
+
   ngOnInit(): void {
     this.getCategories();
   }
@@ -65,8 +76,6 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
   createCategory() {
     const dialogRef = this.dialog.open(FormCategoryComponent, {
       disableClose: true,
-      width: '250px',
-      height: 'auto',
       autoFocus: true,
       hasBackdrop: true,
       closeOnNavigation: false,
@@ -80,11 +89,8 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
     });
   }
   updateCategory(id: number) {
-   
     const dialogRef = this.dialog.open(FormCategoryComponent, {
       disableClose: true,
-      width: '450px',
-      height: '550px',
       autoFocus: true,
       hasBackdrop: true,
       closeOnNavigation: false,
@@ -92,7 +98,7 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
         tipo: 'updateCategory',
         idCategory: id,
       },
-    }); 
+    });
 
     dialogRef.afterClosed().subscribe(() => {
       this.getCategories();

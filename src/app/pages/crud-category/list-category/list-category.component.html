@@ -12,6 +12,7 @@
 
     <div class="actions__btn">
         <button class="actions__btn  btn__new" (click)="createCategory()">agregar</button>
+        <button class="actions__btn  btn__new" (click)="pruebaDialogGenerico()">Dialog Generico</button>
     </div>
 
  
@@ -26,7 +27,7 @@
         <!-- Position Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> CODIGO</th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.id }} </td>
         </ng-container>
 
         <!-- Name Column -->
