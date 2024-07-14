@@ -1,5 +1,18 @@
 .container{
-    width: 400px;
-    height: 250px;
+   
+}
 
+.input__text {
+  /* Aplica estilos al input directamente */
+     border-radius: 10px ;
+    width: 400px;
+    margin-bottom: 20px;
+    height: 30px ;
+
+}
+.container__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 25px;
 }

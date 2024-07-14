@@ -42,6 +42,8 @@ export class FormCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
+
+  
   cancel(): void {
     this.dialogRef.close();
   }
@@ -49,19 +51,21 @@ export class FormCategoryComponent implements OnInit {
     this.categoryService
       .createCategory(this.formGroup.value)
       .subscribe((data) => {
-        console.log(data + ' created and saved');
         this.dialogRef.close(data);
       });
   }
-
   update(): void {
-  
     this.categoryService.updateCategory(this.data.idCategory,this.formGroup.value).subscribe((data) => {
       console.log(data + ' updated', this.data.idCategory);
       this.dialogRef.close(data);
     });
   }
 
+  
+  
+  //inicializar formulario con los campos correspondientes a la seleccion de item si se preciona en update si no
+  //inicializar formulario vacío 
+  
   initForm() {
     if (this.data.idCategory != null) {
       this.categoryService.finById(this.data.idCategory).subscribe((datos) => {
