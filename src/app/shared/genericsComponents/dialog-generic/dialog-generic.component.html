@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+    <ng-container *ngIf="formTemplate">
+        <ng-container *ngTemplateOutlet="formTemplate; context: formContext"></ng-container>
+    </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-button (click)="onSave()">Guardar</button>
+</mat-dialog-actions>
