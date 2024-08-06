@@ -69,7 +69,7 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe((categories) => {
       this.dataSource.data = categories;
-      console.log();
+     
     });
   }
 
@@ -77,6 +77,7 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(FormCategoryComponent, {
       disableClose: true,
       autoFocus: true,
+      
       hasBackdrop: true,
       closeOnNavigation: false,
       data: {

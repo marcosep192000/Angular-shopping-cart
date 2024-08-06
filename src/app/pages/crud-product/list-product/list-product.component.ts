@@ -12,6 +12,8 @@ import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../interfaces/Product';
 import { Pipe } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DialogRef } from '@angular/cdk/dialog';
+import { FormProductComponent } from '../form-product/form-product.component';
 
 @Component({
   selector: 'app-list-product',
@@ -40,7 +42,7 @@ export class ListProductComponent implements OnInit {
   search: string = '';
 
   displayedColumns: string[] = [
-     'barCode',
+    'barCode',
     'name',
     'description',
     'price',
@@ -70,17 +72,39 @@ export class ListProductComponent implements OnInit {
     });
   }
 
-  createProduct() { }
-  updateProduct(id: number) { }
-  
-  deleteProduct(id: number) { }
+  createProduct() {
+    const dialogRef = this.dialog.open(FormProductComponent, {
+      disableClose: true,
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        tipo: 'createProduct',
+      },
+    });
 
+    dialogRef.afterClosed().subscribe(() => {
+      this.getProducts();
+    });
+  }
+  updateProduct(id: number) {
+    const dialogRef = this.dialog.open(FormProductComponent, {
+      disableClose: true,
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        tipo: 'updateProduct',
+        updateProduct: id,
+      },
+    });
 
+    dialogRef.afterClosed().subscribe(() => {
+      this.getProducts();
+    });
+  }
 
-
-
-
-
+  deleteProduct(id: number) {}
 
   /* filtros para la busqueda */
 
@@ -93,27 +117,3 @@ export class ListProductComponent implements OnInit {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-/*   initForm(): void {
-    this.form = this.formBuilder.group({
-      id: [null],
-      category: [null],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', Validators.required],
-      stock: [null],
-      stockMin: [null],
-      image: ['', Validators.required],
-      expiration: [null],
-      unitOfMeasure: [null],
-    });
-  } */

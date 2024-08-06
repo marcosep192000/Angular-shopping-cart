@@ -1,6 +1,8 @@
+import { Category } from "./Category";
+
 export interface Product {
   id: number;
-  category: number;
+  category: Category;
   name: string;
   description: string;
   price: Float32Array;
