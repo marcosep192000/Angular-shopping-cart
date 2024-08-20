@@ -1,35 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormCategoryComponent } from '../../../pages/crud-category/form-category/form-category/form-category.component';
-import { ThisReceiver } from '@angular/compiler';
+import { Component, Inject, TemplateRef } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-generic',
   standalone: true,
-  imports: [CommonModule, FormsModule,ReactiveFormsModule,MatDialogModule],
+  imports: [CommonModule,MatDialogModule,MatButtonModule],
   templateUrl: './dialog-generic.component.html',
-  styleUrl: './dialog-generic.component.css'
+  styleUrl: './dialog-generic.component.css',
 })
-export class DialogGenericComponent implements OnInit{
+export class DialogGenericComponent {
+ 
 
-  title : string; 
-  formTemplate: TemplateRef<any>;
-  formContext: any;
-  constructor(public dialogRef: MatDialogRef<DialogGenericComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any){
-    this.title = data.title;
-    this.formTemplate = data.formTemplate;
-    this.formContext = data.formContext;
+  constructor(
+    public dialogRef: MatDialogRef<DialogGenericComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:{component:any, data:any}) {
+    
   }
-  
-  ngOnInit() { }
-  
-  onCancel() {
+
+  onCancel(): void {
     this.dialogRef.close();
-   }
-  
-  onSave() {this.dialogRef.close(this.formContext); }
+  }
+
+  onSave(): void {
+    // Implementar lógica de guardado según sea necesario
+ 
+  }
 }
-   

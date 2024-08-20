@@ -28,6 +28,6 @@ export class ProductService {
     );
   }
   update(id: number, product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.base}/${id}`, product);
+    return this.http.put<Product>(`${this.base}supermarket/update/${id}`, product);
   }
 }

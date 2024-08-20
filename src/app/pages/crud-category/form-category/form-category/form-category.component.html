@@ -1,6 +1,7 @@
 <div class="container">
 <form [formGroup]="formGroup">
 <h2 mat-dialog-title>{{ data.tipo === 'createCategory' ? 'Crear Nueva Categoria' : 'Actualizar Categoria' }}</h2>
+{{ data.tipo}}
     <mat-dialog-content>
 <!--     <mat-form-field>
         <input matInput class="input__text" formControlName="nameCategory" name="nameCategory" placeholder="Nombre de la Categoria">

@@ -3,9 +3,10 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
   color: white;
   background-color:#522e92;
+  overflow-y: hidden; 
 }
 
 
@@ -20,27 +21,22 @@
   position: sticky;
   top: 0;
   z-index: 1;
-
-
 }
 .color{
   color: white;
   text-decoration: none;
   font-size: 1.4em ;
 }
-
 .material-icons{
 margin: 0;
   margin-right: 5px;
 }
-
 .sidenav__list{
   list-style: none;
 width: 100%;
 margin: 0;
 padding: 0;
 text-align:left;
-
 }
 .list__item{
   width: 100%;
@@ -51,7 +47,6 @@ text-align:left;
 }
 .list__item:hover{
   background-color: #653dab ;
-
 }
 .sidenav__image img{
   margin-left: 10%;

@@ -45,9 +45,7 @@ export class ListProductComponent implements OnInit {
     'barCode',
     'name',
     'description',
-    'price',
     'salePrice',
-    'productUsefulness',
     'stock',
     'Opciones',
   ];
@@ -69,6 +67,7 @@ export class ListProductComponent implements OnInit {
   getProducts(): void {
     this.productService.getProducts().subscribe((product) => {
       this.dataSource.data = product;
+      console.log(this.dataSource.data);
     });
   }
 
@@ -78,6 +77,8 @@ export class ListProductComponent implements OnInit {
       autoFocus: true,
       hasBackdrop: true,
       closeOnNavigation: false,
+    
+
       data: {
         tipo: 'createProduct',
       },
@@ -104,7 +105,9 @@ export class ListProductComponent implements OnInit {
     });
   }
 
-  deleteProduct(id: number) {}
+  deleteProduct(id: number) {
+   
+  }
 
   /* filtros para la busqueda */
 

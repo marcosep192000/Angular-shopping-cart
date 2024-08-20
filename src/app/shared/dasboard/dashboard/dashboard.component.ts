@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterOutlet } from '@angular/router';
 import { FastAccesComponent } from "../fastAcces/fast-acces/fast-acces.component";
+import { ApiDolarComponent } from "../../api-dolar/api-dolar.component";
 
 @Component({
     selector: 'app-dashboard',
@@ -16,15 +17,16 @@ import { FastAccesComponent } from "../fastAcces/fast-acces/fast-acces.component
     styleUrl: './dashboard.component.css',
     standalone: true,
     imports: [
-        AsyncPipe,
-        MatGridListModule,
-        MatMenuModule,
-        MatIconModule,
-        MatButtonModule,
-        MatCardModule,
-        RouterOutlet,
-        FastAccesComponent
-    ]
+    AsyncPipe,
+    MatGridListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    RouterOutlet,
+    FastAccesComponent,
+    ApiDolarComponent
+]
 })
 export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);

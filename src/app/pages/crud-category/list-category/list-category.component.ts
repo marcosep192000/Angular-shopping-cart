@@ -12,6 +12,10 @@ import { FormCategoryComponent } from '../form-category/form-category/form-categ
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 
+import { DialogGenericService } from '../../../services/dialog-generic.service';
+import { FormProductComponent } from '../../crud-product/form-product/form-product.component';
+import { DialogGenericComponent } from '../../../shared/genericsComponents/dialog-generic/dialog-generic.component';
+
  
 @Component({
   selector: 'app-list-category',
@@ -48,18 +52,21 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public dialogService: DialogGenericService
   ) {}
 
   /* prueba de genericos */
-  pruebaDialogGenerico() {
- /*   const dialogRef = this.dialog.open() */
 
-
-
-
-  };
-
+  openDialog() {
+    this.dialogService.openDialog(FormCategoryComponent,
+      {
+        data: {
+          title: 'Crear Categoría',
+          
+        },
+       });
+     }
   /* fin prueba de genericos */
 
   ngOnInit(): void {
@@ -69,7 +76,6 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe((categories) => {
       this.dataSource.data = categories;
-     
     });
   }
 
@@ -77,7 +83,6 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(FormCategoryComponent, {
       disableClose: true,
       autoFocus: true,
-      
       hasBackdrop: true,
       closeOnNavigation: false,
       data: {

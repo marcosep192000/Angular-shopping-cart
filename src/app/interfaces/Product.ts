@@ -7,6 +7,8 @@ export interface Product {
   description: string;
   price: Float32Array;
   stock: number;
+  iva: number;
+  stateIva:boolean;
   stockMin: number;
   image: string;
   expiration: number;

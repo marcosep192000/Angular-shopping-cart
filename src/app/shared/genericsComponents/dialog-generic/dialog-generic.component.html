@@ -1,8 +1,7 @@
-<h2 mat-dialog-title>{{title}}</h2>
+<h2 mat-dialog-title>{{ data.data }}</h2>
 <mat-dialog-content>
-    <ng-container *ngIf="formTemplate">
-        <ng-container *ngTemplateOutlet="formTemplate; context: formContext"></ng-container>
-    </ng-container>
+    <ng-template #container></ng-template>
+    {{data.component.name}}
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button (click)="onCancel()">Cancelar</button>

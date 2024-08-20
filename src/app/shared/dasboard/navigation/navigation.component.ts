@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from "../dashboard/dashboard.component";
+import { VerticalMenuComponent } from "../vertical-menu/vertical-menu.component";
 
 @Component({
     selector: 'app-navigation',
@@ -17,15 +18,16 @@ import { DashboardComponent } from "../dashboard/dashboard.component";
     styleUrl: './navigation.component.css',
     standalone: true,
     imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        AsyncPipe,
-        RouterLink,
-        DashboardComponent
-    ]
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    AsyncPipe,
+    RouterLink,
+    DashboardComponent,
+    VerticalMenuComponent
+]
 })
 export class NavigationComponent {
   private breakpointObserver = inject(BreakpointObserver);

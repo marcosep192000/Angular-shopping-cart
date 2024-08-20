@@ -1,0 +1,16 @@
+.container{
+     background-color: #532e928e ;
+    padding-top: 10px;
+    margin-top: 10px ;
+    border-radius: 5px;
+
+}
+.text{
+    padding-top: 30px ;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    text-align:left;
+    
+}

@@ -1,4 +1,4 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import {
   FormBuilder,
@@ -13,14 +13,12 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { ListCategoryComponent } from '../../list-category/list-category.component';
 import { CategoryService } from '../../../../services/category.service';
-import { Category } from '../../../../interfaces/Category';
-import { trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-form-category',
   standalone: true,
-  imports: [
+  imports: [CommonModule,
     MatInputModule,
     FormsModule,
     MatDialogModule,
@@ -60,12 +58,8 @@ export class FormCategoryComponent implements OnInit {
       this.dialogRef.close(data);
     });
   }
-
-  
-  
   //inicializar formulario con los campos correspondientes a la seleccion de item si se preciona en update si no
   //inicializar formulario vacío 
-  
   initForm() {
     if (this.data.idCategory != null) {
       this.categoryService.finById(this.data.idCategory).subscribe((datos) => {

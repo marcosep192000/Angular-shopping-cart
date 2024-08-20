@@ -2,41 +2,16 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
+    
    
-    <div class="sidenav__image">
+   
+<!--     <div class="sidenav__image">
      <img src="https://media.istockphoto.com/id/1483652033/es/foto/mujer-turista-usa-la-aplicaci%C3%B3n-de-mapas-para-navegar-por-la-ciudad-planificar-la-ruta-desde.webp?s=2048x2048&w=is&k=20&c=f_weXBG8qbY1mP_-9Dn0hVxn_s_2uxTRO9wPIZIBBpI=" alt="usuario">
-    </div>
-   
-   
-    <ul class="sidenav__list">
+    </div> -->
+<hr>
+   <app-vertical-menu></app-vertical-menu>
+  
 
-      <li class="list__item">
-        <span class="material-icons md-48">key</span>
-        <a class="color" href="#" [routerLink]="['category-list']"  routerLinkActive="router-link-active">Categorias</a>
-      </li>
-
-  <li class="list__item">
-    <span class="material-icons md-48">key</span>
-    <a class="color" href="#" [routerLink]="['product-list']" routerLinkActive="router-link-active">Productos</a>
-  </li>
-
-      <li class="list__item"> <span class="material-icons md-48">inventory</span>
-        <a class="color" href="#">Inventario</a>
-      </li>
-      <li class="list__item"> <span class="material-icons md-48">summarize</span>
-        <a class="color" href="#">Reportes</a>
-      </li>
-
-      <li class="list__item"><span class="material-icons md-48">shopping_bag</span>
-        <a class="color" href="#">Pedidos</a>
-      </li>
-
-      <li class="list__item">
-        <span class="material-icons md-48">support_agent</span>
-        <a class="color" href="#">Proveedores</a>
-      </li>
-      
-    </ul>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -50,4 +25,6 @@
     <app-dashboard></app-dashboard>
 
   </mat-sidenav-content>
-</mat-sidenav-container>
+
+</mat-sidenav-container> 
+

@@ -1,0 +1,42 @@
+
+<div class="menu">
+    <div class="menu-item" (click)="toggleMenu('proveedores')">
+        Proveedores
+        <div class="submenu" [class.open]="isMenuOpen('proveedores')">
+            <div class="submenu-item">Proveedor</div>
+            <div class="submenu-item">Reportes</div>
+        </div>
+    </div>
+
+    <div class="menu-item" (click)="toggleMenu('ventas')">
+        Ventas
+        <div class="submenu" [class.open]="isMenuOpen('ventas')">
+        <div class="submenu-item"> nueva Venta</div>
+        </div>
+    </div>
+
+        <div class="menu-item" (click)="toggleMenu('clientes')">
+            Clientes
+            <div class="submenu" [class.open]="isMenuOpen('clientes')">
+                <div class="submenu-item">Compras</div>
+            </div>
+        </div>
+
+        <div class="menu-item" (click)="toggleMenu('reportes')">
+            Reportes
+            <div class="submenu" [class.open]="isMenuOpen('reportes')">
+                <div class="submenu-item">Ventas</div>
+                <div class="submenu-item">Compras</div>
+            </div>
+        </div>
+
+
+
+    <div class="menu-item" (click)="toggleMenu('productos')"> 
+        Productos
+        <div class="submenu" [class.open]="isMenuOpen('productos')">
+            <div class="submenu-item"  [routerLink]="['category-list']"  routerLinkActive="router-link-active">Categorías</div>
+            <div class="submenu-item" [routerLink]="['product-list']">Productos</div>
+        </div>
+    </div>
+</div>

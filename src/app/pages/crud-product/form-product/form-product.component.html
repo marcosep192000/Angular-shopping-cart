@@ -4,8 +4,6 @@
         <mat-dialog-content>
             <div class="form-group">
 
-
-           
             <!-- CODIGO DE BARRAS -->
             <mat-form-field class="input" hintLabel="Máximo 10 caracteres">
                 <mat-label>Codigo de Barras </mat-label>
@@ -33,18 +31,24 @@
                 <input matInput formControlName="stockMin" type="number" />
             </mat-form-field>
         
-
-
-        <!-- PRECIO -->
+        <!-- PRECIO  COSTO -->
 <mat-form-field class="input">
-    <mat-label>Precio</mat-label>
+    <mat-label>Precio de Costo </mat-label>
     <input matInput formControlName="price" type="number" />
+</mat-form-field>
+
+<p><mat-slide-toggle  formControlName ="stateIva"> Incluir Iva?(21%)</mat-slide-toggle></p>
+  
+<!-- UTILIDAD PORCENTAJE -->
+<mat-form-field class="input">
+    <mat-label>Utilidad</mat-label>
+    <input matInput formControlName="productUsefulness" type="number" />
 </mat-form-field>
 
         <!-- PRECIO VENTA -->
         <mat-form-field class="input">
             <mat-label>Precio de Venta</mat-label>
-            <input matInput formControlName="salePrice" type="number" />
+            <input matInput formControlName="salePrice" value="calculatedSalePrice | currency" type="number" />
         </mat-form-field>
 
         <!-- STOCK-->
@@ -54,16 +58,6 @@
             <mat-hint align="end">{{ formGroup.get('name')?.value?.length }}/10</mat-hint>
         </mat-form-field>
 
-
-        <!-- STOCK MINIMO -->
-        <mat-form-field class="input" hintLabel="Máximo 10 caracteres">
-            <mat-label>Stock Minimo</mat-label>
-            <input matInput maxlength="10" formControlName="stockMin" />
-            <mat-hint align="end">{{ formGroup.get('name')?.value?.length }}/10</mat-hint>
-        </mat-form-field>
-
-
-        <!-- SELECT CATEGORIA  -->
     <!-- SELECT CATEGORIA  -->
     <mat-form-field class="input">
         <mat-label>Categorias</mat-label>
@@ -74,6 +68,8 @@
         </mat-select>
     </mat-form-field>
 
+
+    
 </div>
         </mat-dialog-content>
 

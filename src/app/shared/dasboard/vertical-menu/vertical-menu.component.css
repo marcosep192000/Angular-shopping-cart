@@ -1,0 +1,49 @@
+.menu {
+  width: 100%;
+  color: white;
+  background-color: #522e92;
+  font-size: 20px;
+}
+
+.menu-item {
+  width: 100%;
+  padding: 10px 0px;
+  cursor: pointer;
+  margin-left: 10px ;
+}
+
+.menu-item:hover {
+  background-color: #522e92;
+}
+
+.submenu {
+  padding-top: 10px ;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    background-color: #522e92;
+}
+
+.submenu.open {
+  max-height: 500px; /* Ajusta según el contenido máximo esperado */
+  opacity: 1;
+}
+
+.submenu-item {
+  font-size: 15px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+ background-color: #43188d;
+  width: 100%;
+  height: 30px ;
+  font-size: 15px;
+ 
+  align-content: center;
+  justify-content: center;
+  transition: background-color 1.1s ease;	
+
+}

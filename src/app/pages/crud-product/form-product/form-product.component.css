@@ -1,39 +1,4 @@
-/* .container__codeBar {
-  grid-area: container__codeBar;
-  background-color: red;
-}
 
-.container__left {
-  grid-area: container__left;
-  background-color: rebeccapurple;
-}
-
-.container__right {
-  grid-area: container__right;
-  background-color: lightblue;
-}
-
-.container {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  display: grid;
-  grid-template-areas: 
-    "container__codeBar"
-    "container__left"
-    "container__right";
-
-}
-
-@media only screen and (min-width: 767px) {
-  .container {
-    grid-template-areas: 
-      "container__codeBar container__codeBar"
-      "container__left container__right";
-  
-  }
-}
-*/
 
 
 .container {
@@ -53,3 +18,4 @@
 .input{
   margin: 10px ;
 }
+
