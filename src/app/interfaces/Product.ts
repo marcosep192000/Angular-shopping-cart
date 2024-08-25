@@ -1,7 +1,9 @@
 import { Category } from "./Category";
+import { Marca } from "./marca";
 
 export interface Product {
   id: number;
+  marca: Marca; 
   category: Category;
   name: string;
   description: string;

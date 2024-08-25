@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
+  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -21,6 +22,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { error } from 'console';
+import { Marca } from '../../../interfaces/marca';
+import { MarcaService } from '../../../services/marca.service';
+import { FormMarcaComponent } from '../../crud-marca/form-marca/form-marca.component';
  
 
 
@@ -45,44 +49,50 @@ export class FormProductComponent implements OnInit {
   protected readonly value = signal('');
   calculatedSalePrice: number = 0;
 
+
   protected onInput(event: Event) {
     this.value.set((event.target as HTMLInputElement).value);
   }
 
   formGroup!: FormGroup;
   dataCategories: Category[] = [];
-
+  dataMarca: Marca[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FormProductComponent>,
+     public dialog: MatDialog,
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private marcaService: MarcaService
   ) {
     this.formGroup = this.fb.group({
       category: [1],
+      marca: [1],
       barCode: ['', Validators.required],
       description: ['', Validators.required],
-      name: ['',  Validators.required],
+      name: ['', Validators.required],
       price: ['', Validators.required],
       stock: ['', Validators.required],
       stockMin: ['', Validators.required],
       stateIva: [false, Validators.required],
       unitOfMeasure: ['', Validators.required],
-      salePrice: [''],
+      salePrice: ['', Validators.required],
       productUsefulness: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.loadCategories();
+    this.loadMarcas();
     if (this.data.updateProduct != null) {
       this.productService
         .findById(this.data.updateProduct)
         .subscribe((datos) => {
           this.formGroup.patchValue({
             category: datos.category.id,
+
             barCode: datos.barCode,
             description: datos.description,
             name: datos.name,
@@ -112,9 +122,15 @@ export class FormProductComponent implements OnInit {
     });
   }
 
+  loadMarcas() {
+    this.marcaService.allMarca().subscribe((marcas) => {
+      this.dataMarca = marcas;
+      console.log(this.dataMarca);
+    });
+  }
+
   cancel() {
     this.dialogRef.close();
-  
   }
 
   save(): void {
@@ -124,19 +140,23 @@ export class FormProductComponent implements OnInit {
         this.showSuccess();
       });
     } else {
-      this.toastr.error('Por favor, complete todos los campos requeridos!', '', {
-        timeOut: 5000,
-        positionClass: 'toast-bottom-right'
-      });
+      console.log(this.formGroup.errors);
+      console.log(this.data);
+      this.toastr.error(
+        'Por favor, complete todos los campos requeridos!',
+        '',
+        {
+          timeOut: 5000,
+          positionClass: 'toast-bottom-right',
+        }
+      );
     }
-  
-    
   }
 
   showSuccess() {
     this.toastr.success('Poducto guardado con Exito!', '', {
       timeOut: 10000,
-      positionClass: 'toast-bottom-right'
+      positionClass: 'toast-bottom-right',
     });
   }
 
@@ -147,7 +167,6 @@ export class FormProductComponent implements OnInit {
         console.log(this.formGroup.value);
         this.dialogRef.close(data);
       });
-  
   }
 
   calculateSalePrice(
@@ -164,5 +183,27 @@ export class FormProductComponent implements OnInit {
     this.calculatedSalePrice = finalPrice;
     this.formGroup.patchValue({ salePrice: finalPrice }, { emitEvent: false });
   }
-}
 
+  /* nueva marca */
+
+  createMarca() {
+    const dialogRef = this.dialog.open(FormMarcaComponent, {
+      disableClose: true,
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        tipo: 'createMarca',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getProducts();
+    });
+  }
+  getProducts() {
+    throw new Error('Method not implemented.');
+  }
+
+  /* nuevo proveedor */
+}

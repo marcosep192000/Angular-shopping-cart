@@ -1,21 +1,92 @@
-
-
-
 .container {
-  width: 550px;
-  background-color:#fffefc;
+  width: 580px;
+  background-color: #fffefc;
+  display: grid;
+  grid-template-columns:auto; /* Dos columnas de igual ancho */
+  gap: 2px; /* Espacio entre columnas */
   justify-content: center;
+  align-items: center;
 }
 
-.form-group{
-  display: flex;
+/* Estilos para los grupos de formulario (si es necesario) */
+
+
+/* Estilos para los inputs */
+ 
+
+/* Estilos específicos para un input de clase 'iva' */
+.iva {
+
+  width: 100%; 
+ height: 55px;
+ margin-bottom: 21px;
+ align-items: center;
+ align-content: center;
+ justify-content: center;
+ 
+}
+ 
+ 
+
+/* Contenedor principal */
+.container-col {
+  width: 550px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows:auto  ; 
+  grid-template-areas:
+  "barCode barCode" 
+  "col1 col2";
+
+  gap: 2px; /* Espacio entre las columnas */
+}
+
+/* Estilos para las columnas */
+.barCode{
+  grid-area: barCode;
   width: 100%;
-  flex-direction:row;
-  flex-wrap: wrap;
-
+  height: min-content;
+  justify-content: start;
+  align-items:start;
+  text-align: start;
+  font-weight: bold;
 }
 
-.input{
-  margin: 10px ;
+
+.col1{
+  grid-area: col1;
+  padding: 10px;
 }
 
+
+.col2 {
+  grid-area: col2;
+  padding: 10px;
+}
+.codigo__barras{
+  width:80%;
+}
+
+.input{width: 100%;}
+
+.btn__marca {
+  color: white;
+height: 56px;
+ width: 40px;
+ background-color:#522e92;
+ border-color: none;
+ border-radius: 4px;
+ border-style: none;
+}
+
+.marca{
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+.col2__btnMarca{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+ 
+}

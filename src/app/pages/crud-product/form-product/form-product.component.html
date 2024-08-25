@@ -1,84 +1,155 @@
-<div class="container">
+
     <form [formGroup]="formGroup">
-        <h2 mat-dialog-title>{{ data.tipo === 'createProduct' ? 'Crear Nuevo Producto' : 'Actualizar Producto' }}</h2>
+        <h2 mat-dialog-title>{{ data.tipo === 'createProduct' ?
+            'Crear Nuevo Producto' : 'Actualizar Producto' }}</h2>
         <mat-dialog-content>
-            <div class="form-group">
+         
 
-            <!-- CODIGO DE BARRAS -->
-            <mat-form-field class="input" hintLabel="Máximo 10 caracteres">
-                <mat-label>Codigo de Barras </mat-label>
-                <input matInput maxlength="10" formControlName="barCode" />
-                <mat-hint align="end">{{ formGroup.get('name')?.value?.length }}/10</mat-hint>
-            </mat-form-field>
+                <div class="container-col">
+                    <div class="barCode">
 
-            <!-- PRODUCTO -->
-            <mat-form-field class="input" hintLabel="Máximo 10 caracteres">
-                <mat-label>Producto</mat-label>
-                <input matInput maxlength="10" formControlName="name" />
-                <mat-hint align="end">{{ formGroup.get('name')?.value?.length }}/10</mat-hint>
-            </mat-form-field>
+                        <!-- CODIGO DE BARRAS -->
+                        <mat-form-field class="input codigo__barras"
+                            hintLabel="Máximo 10 caracteres">
+                            <mat-label>Codigo de Barras </mat-label>
+                            <input matInput maxlength="10"
+                                formControlName="barCode" />
+                            <mat-hint align="end">{{
+                                formGroup.get('name')?.value?.length
+                                }}/10</mat-hint>
+                        </mat-form-field>
 
-            <!-- DESCRIPCION  -->
-            <mat-form-field class="input" hintLabel="Máximo 10 caracteres">
-                <mat-label>Descripción</mat-label>
-                <input matInput maxlength="10" formControlName="description" />
-                <mat-hint align="end">{{ formGroup.get('description')?.value?.length }}/10</mat-hint>
-            </mat-form-field>
+                    </div><!-- FIN CODIGO DE BARRAS  -->
 
-            <!-- STOCK MINIMO -->
-            <mat-form-field class="input">
-                <mat-label>Stock Mínimo</mat-label>
-                <input matInput formControlName="stockMin" type="number" />
-            </mat-form-field>
+                    <!-- COLUMNA1  -->
+                    <div class="col1"> <!-- SELECT  proveedor  LOAD  -->
+                       
+                     <!--    <mat-form-field class="input">
+                            <mat-label>Proveedor</mat-label>
+                            <mat-select formControlName="proveedor">
+                                <mat-option *ngFor="let item of dataMarca; "
+                                    [value]="item.id">
+                                    {{item.id}}- {{ item.marca}}
+
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> -->
+
+                        <!-- PRODUCTO -->
+                        <mat-form-field class="input"
+                            hintLabel="Máximo 10 caracteres">
+                            <mat-label>Producto</mat-label>
+                            <input matInput maxlength="10"
+                                formControlName="name" />
+                            <mat-hint align="end">{{
+                                formGroup.get('name')?.value?.length
+                                }}/10</mat-hint>
+                        </mat-form-field>
+                        <!-- STOCK MINIMO -->
+                        <mat-form-field class="input">
+                            <mat-label>Stock Mínimo</mat-label>
+                            <input matInput formControlName="stockMin"
+                                type="number" />
+                        </mat-form-field>
+
+                        <!-- PRECIO  COSTO -->
+                        <mat-form-field class="input">
+                            <mat-label>Precio de Costo </mat-label>
+                            <input matInput formControlName="price"
+                                type="number" />
+                        </mat-form-field>
+
+                        <!-- UTILIDAD PORCENTAJE -->
+                        <mat-form-field class="input">
+                            <mat-label>Utilidad</mat-label>
+                            <input matInput formControlName="productUsefulness"
+                                type="number" />
+                        </mat-form-field>
+
+                    </div><!-- FIN COL1  -->
+
+                    <!-- COLUMNA 2 -->
+                    <div class="col2">
+                      
+                      <div class="col2__btnMarca">
+                        <!-- SELECT  MARCAS  LOAD  -->
+                        <mat-form-field class="input marca">
+                            <mat-label>Marca</mat-label>
+                            <mat-select formControlName="marca">
+                                <mat-option *ngFor="let item of dataMarca; "
+                                    [value]="item.id">
+                                    {{item.id}}- {{ item.marca}}
+
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button type="button" class="btn__marca" (click)="createMarca()">+</button>
+                      
+                     </div>
+                     
+                     
+                        <!-- DESCRIPCION  -->
+                        <mat-form-field class="input"
+                            hintLabel="Máximo 10 caracteres">
+                            <mat-label>Descripción</mat-label>
+                            <input matInput maxlength="10"
+                                formControlName="description" />
+                            <mat-hint align="end">{{
+                                formGroup.get('description')?.value?.length
+                                }}/10</mat-hint>
+                        </mat-form-field>
+
+                        <!-- STOCK-->
+                        <mat-form-field class="input"
+                            hintLabel="Máximo 10 caracteres">
+                            <mat-label>Stock</mat-label>
+                            <input matInput maxlength="10"
+                                formControlName="stock" />
+                            <mat-hint align="end">{{
+                                formGroup.get('name')?.value?.length
+                                }}/10</mat-hint>
+                        </mat-form-field>
+
+                        <!--IVA-->
+                        <mat-slide-toggle formControlName="stateIva"
+                            class="iva"> Incluir Iva?(21%)</mat-slide-toggle>
+
+                        <!-- PRECIO VENTA -->
+                        <mat-form-field class="input">
+                            <mat-label>Precio de Venta</mat-label>
+                            <input matInput formControlName="salePrice"
+                                value="calculatedSalePrice | currency"
+                                type="number" />
+                        </mat-form-field>
+
+                        <!-- SELECT CATEGORIA  -->
+                        <mat-form-field class="input">
+                            <mat-label>Categorias</mat-label>
+                            <mat-select formControlName="category">
+                                <mat-option
+                                    *ngFor="let item of dataCategories; "
+                                    [value]="item.id">
+                                    {{ item.id }} - {{ item.nameCategory }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div><!-- FIN DE COL 2 -->
+
+                </div>
+
         
-        <!-- PRECIO  COSTO -->
-<mat-form-field class="input">
-    <mat-label>Precio de Costo </mat-label>
-    <input matInput formControlName="price" type="number" />
-</mat-form-field>
-
-<p><mat-slide-toggle  formControlName ="stateIva"> Incluir Iva?(21%)</mat-slide-toggle></p>
-  
-<!-- UTILIDAD PORCENTAJE -->
-<mat-form-field class="input">
-    <mat-label>Utilidad</mat-label>
-    <input matInput formControlName="productUsefulness" type="number" />
-</mat-form-field>
-
-        <!-- PRECIO VENTA -->
-        <mat-form-field class="input">
-            <mat-label>Precio de Venta</mat-label>
-            <input matInput formControlName="salePrice" value="calculatedSalePrice | currency" type="number" />
-        </mat-form-field>
-
-        <!-- STOCK-->
-        <mat-form-field class="input" hintLabel="Máximo 10 caracteres">
-            <mat-label>Stock</mat-label>
-            <input matInput maxlength="10" formControlName="stock" />
-            <mat-hint align="end">{{ formGroup.get('name')?.value?.length }}/10</mat-hint>
-        </mat-form-field>
-
-    <!-- SELECT CATEGORIA  -->
-    <mat-form-field class="input">
-        <mat-label>Categorias</mat-label>
-        <mat-select formControlName="category">
-            <mat-option *ngFor="let item of dataCategories; " [value]="item.id">
-                {{ item.id }} - {{ item.nameCategory }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-
-    
-</div>
         </mat-dialog-content>
 
         <mat-dialog-actions>
-            <button mat-raised-button class="warn" (click)="cancel()">Cancelar</button>
+          <div class="btn"></div>
+            <button mat-raised-button class="warn"
+                (click)="cancel()">Cancelar</button>
             <button mat-raised-button color="primary" (click)="save()"
                 *ngIf="data.tipo === 'createProduct'">Guardar</button>
             <button mat-raised-button color="primary" (click)="update()"
                 *ngIf="data.tipo !== 'createProduct'">Modificar</button>
         </mat-dialog-actions>
     </form>
-</div>
+
+
