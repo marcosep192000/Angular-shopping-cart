@@ -20,7 +20,6 @@ export class CategoryService implements OnInit {
   }
   deleteCategory(id: number): Observable<Category> {
     return this.http.delete<Category>(`${this.baseUrl}category/${id}`);
-    console.log(id);
   }
   finById(id: number): Observable<Category> {
     return this.http.get<Category>(`${this.baseUrl}category/find/${id}`);

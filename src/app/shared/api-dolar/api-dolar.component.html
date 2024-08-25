@@ -4,12 +4,8 @@
 <h2>
     <strong>Cotizacion del dia: </strong>
  </h2>
-    <h3><strong>Moneda: </strong>{{dolarHoy.moneda}}</h3>
-  <h3><strong>Nombre: </strong>{{dolarHoy.nombre}}</h3>
-  <h3><strong>Compra: </strong>{{dolarHoy.compra}}</h3>
-  <h3><strong>Venta : </strong>{{dolarHoy.venta}}</h3>
-
- </div>
-
-
-</div>
+  @if (dolarHoy) {
+ <h3><strong>Moneda: </strong>{{dolarHoy.moneda}}</h3>
+  <h3><strong>Tipo de cambio: </strong>{{dolarHoy.nombre}}</h3>
+  <h3><strong>Compra : </strong>{{dolarHoy.compra}}  |  <strong>Venta : </strong> {{dolarHoy.venta}}</h3>
+  } @else {<h3>No hay cotizaciones disponibles.</h3>}

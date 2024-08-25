@@ -9,18 +9,19 @@ import { ApiDolarService } from '../../services/api-dolar.service';
   templateUrl: './api-dolar.component.html',
   styleUrl: './api-dolar.component.css'
 })
-export class ApiDolarComponent implements OnInit  {
-dolarHoy!: Dolar;
+export class ApiDolarComponent implements OnInit {
+  dolarHoy!: Dolar;
   constructor(private dolarService: ApiDolarService) {
     
   }
   ngOnInit(): void {
-    this.getDolar(); 
+    this.getDolar();
   }
-    getDolar(): void  {
-      this.dolarService.getDolar().subscribe(d =>
-        this.dolarHoy = d);
-    console.log(this.dolarHoy);
-  }
- }
 
+
+  getDolar(): void {
+    this.dolarService.getDolar().subscribe(d => {
+      this.dolarHoy = d;
+    });
+  }
+}

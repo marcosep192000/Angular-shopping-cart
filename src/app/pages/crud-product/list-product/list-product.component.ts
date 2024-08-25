@@ -44,6 +44,7 @@ export class ListProductComponent implements OnInit {
   displayedColumns: string[] = [
     'barCode',
     'name',
+    
     'description',
     'salePrice',
     'stock',
@@ -77,8 +78,6 @@ export class ListProductComponent implements OnInit {
       autoFocus: true,
       hasBackdrop: true,
       closeOnNavigation: false,
-    
-
       data: {
         tipo: 'createProduct',
       },
@@ -89,6 +88,7 @@ export class ListProductComponent implements OnInit {
     });
   }
   updateProduct(id: number) {
+    console.log( "ver"+id);
     const dialogRef = this.dialog.open(FormProductComponent, {
       disableClose: true,
       autoFocus: true,
