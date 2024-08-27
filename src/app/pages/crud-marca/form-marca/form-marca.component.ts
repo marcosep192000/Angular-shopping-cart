@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { MarcaService } from '../../../services/marca.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -42,7 +42,8 @@ export class FormMarcaComponent implements OnInit {
     private marcaService: MarcaService,
     private router: Router,
     private HttpClient: HttpClient,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService,
   ) {
 
     this.formGroup = this.fb.group({
@@ -51,15 +52,37 @@ export class FormMarcaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+   
   }
   cancel() {
     this.dialogRef.close();
   }
   save() {
-   /*  this.marcaService.createMarca(this.formGroup.value).subscribe((data) => {
+    
+    if (this.formGroup.valid) {
+    this.marcaService.saveMarca(this.formGroup.value).subscribe((data) => {
       this.dialogRef.close(data);
-    }); */
+      console.log(data);
+      this.toastr.success("Marca guardada correctamente");
+      this.allMarca();
+    }, (error) => {
+      console.error(error);
+      this.toastr.error("Error guardando Marca");
+    });  
+}else {this.toastr.error('Error guardando Marca');}
+
+  
   }
+
+
+
   update() { }
+
+  allMarca() {
+    this.marcaService.allMarca().subscribe(marca => { 
+      this.marcas = marca;
+      console.log(marca);
+    })   
+  }
 }
+ 

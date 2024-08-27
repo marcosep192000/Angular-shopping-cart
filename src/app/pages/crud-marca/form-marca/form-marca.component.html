@@ -8,12 +8,12 @@
         <div class="container-col">
             <div class="barCode">
 
-                <!-- CODIGO DE BARRAS -->
-                <mat-form-field class="input codigo__barras" hintLabel="Máximo 15 caracteres">
+                <!-- marcas -->
+                <mat-form-field  hintLabel="Máximo 15 caracteres">
                     <mat-label>Ingresa la Marca</mat-label>
-                    <input matInput maxlength="15" formControlName="barCode" />
+                    <input matInput maxlength="15" formControlName="marca" />
                     <mat-hint align="end">{{
-                        formGroup.get('name')?.value?.length
+                        formGroup.get('marca')?.value?.length
                         }}/15</mat-hint>
                 </mat-form-field>
 
@@ -27,8 +27,8 @@
         <div class="btn"></div>
         <button mat-raised-button class="warn" (click)="cancel()">Cancelar</button>
         <button mat-raised-button color="primary" (click)="save()"
-            *ngIf="data.tipo === 'createProduct'">Guardar</button>
+            *ngIf="data.tipo === 'createMarca'">Guardar</button>
         <button mat-raised-button color="primary" (click)="update()"
-            *ngIf="data.tipo !== 'createProduct'">Modificar</button>
+            *ngIf="data.tipo !== 'createMarca'">Modificar</button>
     </mat-dialog-actions>
 </form>
