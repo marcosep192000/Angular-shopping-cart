@@ -23,17 +23,21 @@
 
                     <!-- COLUMNA1  -->
                     <div class="col1"> <!-- SELECT  proveedor  LOAD  -->
-                       
-                     <!--    <mat-form-field class="input">
+                    <div class="col2__btnMarca">
+                        <!-- SELECT  MARCAS  LOAD  -->
+                        <mat-form-field class="input marca">
                             <mat-label>Proveedor</mat-label>
-                            <mat-select formControlName="proveedor">
-                                <mat-option *ngFor="let item of dataMarca; "
-                                    [value]="item.id">
+                            <mat-select formControlName="marca">
+                                <mat-option *ngFor="let item of dataMarca; " [value]="item.id">
                                     {{item.id}}- {{ item.marca}}
-
+                    
                                 </mat-option>
                             </mat-select>
-                        </mat-form-field> -->
+                        </mat-form-field>
+                        <button type="button" class="btn__marca" (click)="createMarca()">+</button>
+                    
+                    </div>
+
 
                         <!-- PRODUCTO -->
                         <mat-form-field class="input"

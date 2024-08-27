@@ -185,7 +185,6 @@ export class FormProductComponent implements OnInit {
   }
 
   /* nueva marca */
-
   createMarca() {
     const dialogRef = this.dialog.open(FormMarcaComponent, {
       disableClose: true,
@@ -198,12 +197,8 @@ export class FormProductComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.getProducts();
+      this.loadMarcas();
     });
   }
-  getProducts() {
-    throw new Error('Method not implemented.');
-  }
-
   /* nuevo proveedor */
 }
