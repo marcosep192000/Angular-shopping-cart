@@ -1,3 +1,13 @@
+<section *ngIf="categories$ | async as categories; else noData">
+    <ul>
+        <li *ngFor="let category of categories">
+            {{ category.descriptionCategory }} <!-- Ajusta esto según la estructura de tu modelo Category -->
+        </li>
+    </ul>
+</section>
+<ng-template #noData>
+    <p>No hay categorías disponibles.</p>
+</ng-template>
 
 
 

@@ -11,7 +11,6 @@ import { MarcaService } from '../../../services/marca.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Marca } from '../../../interfaces/marca';
-import { FormProductComponent } from '../../crud-product/form-product/form-product.component';
 
 @Component({
   selector: 'app-form-marca',
@@ -38,7 +37,6 @@ export class FormMarcaComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FormMarcaComponent>,
     public dialog: MatDialog,
-
     private marcaService: MarcaService,
     private router: Router,
     private HttpClient: HttpClient,

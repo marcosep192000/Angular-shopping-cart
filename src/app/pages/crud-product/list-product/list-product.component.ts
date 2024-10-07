@@ -10,10 +10,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../interfaces/Product';
-import { Pipe } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogRef } from '@angular/cdk/dialog';
 import { FormProductComponent } from '../form-product/form-product.component';
+import { DialogGenericComponent } from '../../../shared/genericsComponents/dialog-generic/dialog-generic.component';
 
 @Component({
   selector: 'app-list-product',
@@ -44,7 +43,6 @@ export class ListProductComponent implements OnInit {
   displayedColumns: string[] = [
     'barCode',
     'name',
-    
     'description',
     'salePrice',
     'stock',
@@ -67,8 +65,10 @@ export class ListProductComponent implements OnInit {
   }
   getProducts(): void {
     this.productService.getProducts().subscribe((product) => {
-      this.dataSource.data = product;
-      console.log(this.dataSource.data);
+      const filteredProducts = product.filter(
+        (product) => product.status.valueOf() === true
+      );
+      this.dataSource.data = filteredProducts;
     });
   }
 
@@ -88,7 +88,6 @@ export class ListProductComponent implements OnInit {
     });
   }
   updateProduct(id: number) {
-    console.log( "ver"+id);
     const dialogRef = this.dialog.open(FormProductComponent, {
       disableClose: true,
       autoFocus: true,
@@ -99,18 +98,11 @@ export class ListProductComponent implements OnInit {
         updateProduct: id,
       },
     });
-
     dialogRef.afterClosed().subscribe(() => {
       this.getProducts();
     });
   }
-
-  deleteProduct(id: number) {
-   
-  }
-
   /* filtros para la busqueda */
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -118,5 +110,35 @@ export class ListProductComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteProduct(id: number) {
+    const dialogRef = this.dialog.open(DialogGenericComponent, {
+      disableClose: true,
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        component: 'createProduct', // O cualquier otro componente relevante
+        data: `¿Estás seguro de eliminar el Producto con ID ${id}?`, // Aquí pasas el mensaje
+        state: 'Eliminar',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result == true) {
+        this.delete_Product(id);
+      } else {
+        console.log('Cancelado');
+      }    
+    });
+  }
+
+  delete_Product(id: number) {
+    console.log(id);
+    this.productService.delete(id).subscribe(() => {
+        this.getProducts();
+    });
   }
 }

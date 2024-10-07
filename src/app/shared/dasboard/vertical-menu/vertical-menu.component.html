@@ -15,10 +15,10 @@
         </div>
     </div>
 
-        <div class="menu-item" (click)="toggleMenu('clientes')">
+        <div class="menu-item"  routerLink="client-list" (click)="toggleMenu('clientes')">
             Clientes
             <div class="submenu" [class.open]="isMenuOpen('clientes')">
-                <div class="submenu-item">Compras</div>
+                <div class="submenu-item" >Compras</div>
             </div>
         </div>
 

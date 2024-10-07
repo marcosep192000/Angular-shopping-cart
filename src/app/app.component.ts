@@ -13,5 +13,5 @@ import { CommonModule } from '@angular/common';
   imports: [RouterOutlet, NavigationComponent, CommonModule],
 })
 export class AppComponent {
-  title = 'inventarioPixels';
+  title = 'Inventario Pixels';
 }

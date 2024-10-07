@@ -28,6 +28,15 @@ export class ProductService {
     );
   }
   update(id: number, product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.base}supermarket/update/${id}`, product);
+    return this.http.put<Product>(
+      `${this.base}supermarket/update/${id}`,
+      product
+    );
+  }
+  delete(id: number): Observable<void> {
+    return this.http.put<void>(
+      `${this.base}supermarket/supermarket-delete/${id}`,
+      {}
+    );
   }
 }

@@ -11,20 +11,15 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
   styleUrl: './dialog-generic.component.css',
 })
 export class DialogGenericComponent {
- 
-
   constructor(
     public dialogRef: MatDialogRef<DialogGenericComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:{component:any, data:any}) {
-    
+    @Inject(MAT_DIALOG_DATA) public data:{component:any, data:any,state:any}) {    
   }
-
   onCancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
-
   onSave(): void {
-    // Implementar lógica de guardado según sea necesario
- 
+
+    this.dialogRef.close(true);
   }
 }

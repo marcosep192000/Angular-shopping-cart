@@ -25,6 +25,10 @@ import { error } from 'console';
 import { Marca } from '../../../interfaces/marca';
 import { MarcaService } from '../../../services/marca.service';
 import { FormMarcaComponent } from '../../crud-marca/form-marca/form-marca.component';
+import { FormSupplierComponent } from '../../crud-supplier/form-supplier/form-supplier.component';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { SupplierService } from '../../../services/supplier.service';
+import { Supplier } from '../../../interfaces/supplier';
  
 
 
@@ -35,6 +39,7 @@ import { FormMarcaComponent } from '../../crud-marca/form-marca/form-marca.compo
     ToastrModule,
     MatInputModule,
     CommonModule,
+    MatIconModule,
     MatDialogModule,
     MatButtonModule,
     FormsModule,
@@ -49,7 +54,6 @@ export class FormProductComponent implements OnInit {
   protected readonly value = signal('');
   calculatedSalePrice: number = 0;
 
-
   protected onInput(event: Event) {
     this.value.set((event.target as HTMLInputElement).value);
   }
@@ -57,28 +61,38 @@ export class FormProductComponent implements OnInit {
   formGroup!: FormGroup;
   dataCategories: Category[] = [];
   dataMarca: Marca[] = [];
+  dataSuplier: Supplier[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FormProductComponent>,
-     public dialog: MatDialog,
+    public dialog: MatDialog,
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private productService: ProductService,
     private toastr: ToastrService,
-    private marcaService: MarcaService
+    private marcaService: MarcaService,
+    private supplierService: SupplierService
   ) {
     this.formGroup = this.fb.group({
       category: [1],
       marca: [1],
+      provider: [1],
       barCode: ['', Validators.required],
       description: ['', Validators.required],
       name: ['', Validators.required],
-      price: ['', Validators.required],
+      price: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^\\d*\\.?\\d*$'), // Acepta números decimales
+        ],
+      ],
       stock: ['', Validators.required],
       stockMin: ['', Validators.required],
       stateIva: [false, Validators.required],
-      unitOfMeasure: ['', Validators.required],
-      salePrice: ['', Validators.required],
+      unitOfMeasure: [''],
+      status: [true],
+      salePrice: [null, Validators.required],
       productUsefulness: ['', Validators.required],
     });
   }
@@ -86,13 +100,16 @@ export class FormProductComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
     this.loadMarcas();
+    this.loadSuplier();
+
     if (this.data.updateProduct != null) {
       this.productService
         .findById(this.data.updateProduct)
         .subscribe((datos) => {
           this.formGroup.patchValue({
             category: datos.category.id,
-
+            marca: datos.marca.id,
+            provider: datos.provider.id,
             barCode: datos.barCode,
             description: datos.description,
             name: datos.name,
@@ -100,7 +117,7 @@ export class FormProductComponent implements OnInit {
             stateIva: datos.stateIva,
             stock: datos.stock,
             stockMin: datos.stockMin,
-            unitOfMeasure: datos.unitOfMeasure,
+            unitOfMeasure: 32,
             salePrice: datos.salePrice,
             productUsefulness: datos.productUsefulness,
           });
@@ -121,11 +138,17 @@ export class FormProductComponent implements OnInit {
       this.dataCategories = categories;
     });
   }
-
   loadMarcas() {
     this.marcaService.allMarca().subscribe((marcas) => {
       this.dataMarca = marcas;
       console.log(this.dataMarca);
+    });
+  }
+
+  loadSuplier() {
+    this.supplierService.getAllSuppliers().subscribe((supplierInfo) => {
+      this.dataSuplier = supplierInfo;
+      console.log(this.dataSuplier);
     });
   }
 
@@ -134,10 +157,12 @@ export class FormProductComponent implements OnInit {
   }
 
   save(): void {
+    console.log(this.formGroup.value);
     if (this.formGroup.valid) {
       this.productService.save(this.formGroup.value).subscribe((data) => {
         this.dialogRef.close(data);
         this.showSuccess();
+        console.log(this.formGroup.value);
       });
     } else {
       console.log(this.formGroup.errors);
@@ -154,7 +179,7 @@ export class FormProductComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toastr.success('Poducto guardado con Exito!', '', {
+    this.toastr.success('Producto guardado con Exito!', '', {
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
     });
@@ -167,21 +192,6 @@ export class FormProductComponent implements OnInit {
         console.log(this.formGroup.value);
         this.dialogRef.close(data);
       });
-  }
-
-  calculateSalePrice(
-    price: number,
-    productUsefulness: number,
-    stateIva: boolean
-  ): void {
-    let finalPrice;
-    if (stateIva == false) {
-      finalPrice = price + (price * productUsefulness) / 100;
-    } else {
-      finalPrice = price * 1.21 + (price * productUsefulness) / 100;
-    }
-    this.calculatedSalePrice = finalPrice;
-    this.formGroup.patchValue({ salePrice: finalPrice }, { emitEvent: false });
   }
 
   /* nueva marca */
@@ -201,4 +211,62 @@ export class FormProductComponent implements OnInit {
     });
   }
   /* nuevo proveedor */
+  createSupplier() {
+    const dialogRef = this.dialog.open(FormSupplierComponent, {
+      disableClose: true,
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        tipo: 'createSupplier',
+      },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadSuplier();
+      console.log(dialogRef);
+    });
+  }
+
+  calculateSalePrice(
+    price: number,
+    productUsefulness: number,
+    stateIva: boolean
+  ): void {
+    let finalPrice: number;
+    // Asegúrate de que `price` y `productUsefulness` sean números
+    const priceValue = Number(price);
+    const usefulnessValue = Number(productUsefulness);
+
+    if (isNaN(priceValue) || isNaN(usefulnessValue)) {
+      console.error('Invalid input for price or product usefulness');
+      return;
+    }
+
+    if (stateIva === false) {
+      finalPrice = (priceValue * usefulnessValue) / 100 + priceValue;
+    } else {
+      // Con IVA
+      const priceWithIva = priceValue * 1.21;
+      finalPrice = priceWithIva + (priceValue * usefulnessValue) / 100;
+    }
+
+    this.calculatedSalePrice = finalPrice;
+    this.formGroup.patchValue({ salePrice: finalPrice }, { emitEvent: false });
+  }
+
+  onInputChange(event: Event, controlName: string): void {
+    const input = event.target as HTMLInputElement;
+    // Filtra todos los caracteres no numéricos, excepto el punto decimal
+    const filteredValue = input.value.replace(/[^0-9.]/g, '');
+    // Limita la longitud a 12 caracteres
+    const finalValue = filteredValue.slice(0, 12);
+    const control = this.formGroup.get(controlName);
+    if (control) {
+      control.setValue(finalValue, { emitEvent: false });
+    }
+  }
+
+  get formattedSalePrice(): string {
+    return this.calculatedSalePrice.toFixed(2); // Formatea a dos decimales
+  }
 }

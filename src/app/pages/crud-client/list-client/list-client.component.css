@@ -1,0 +1,36 @@
+.container__accions{
+    display: flex;
+    
+}
+.container__serch{
+    display: flex; 
+     justify-content: space-between;
+    align-items: center;
+    margin: 10px 10px }
+.container__serch{
+    background-color: #532e926b;
+    border-radius:5px ;
+    align-items: center;
+}
+.search__input{
+    border-radius: 7px ;
+    width: 400px;
+    height: 30px ;
+}
+.btn__delete{
+    margin: 10px 10px;
+    background-color: #ff0000d9;
+    border-radius: 10px ;
+    width: 35px;
+    height:35px;
+    color:white;
+}
+.btn__update{
+    margin: 10px 10px;
+    background-color: #532e92e4;
+    border-radius: 10px ;
+    width: 35px;
+    height:35px;
+    color:white;
+}
+

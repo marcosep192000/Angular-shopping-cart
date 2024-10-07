@@ -15,6 +15,9 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { DialogGenericService } from '../../../services/dialog-generic.service';
 import { FormProductComponent } from '../../crud-product/form-product/form-product.component';
 import { DialogGenericComponent } from '../../../shared/genericsComponents/dialog-generic/dialog-generic.component';
+import { Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
  
 @Component({
@@ -33,6 +36,8 @@ import { DialogGenericComponent } from '../../../shared/genericsComponents/dialo
     MatDialogModule,
     MatInputModule,
     MatTooltip,
+    CommonModule, // Agrega CommonModule aquí
+    HttpClientModule // Asegúrate de importar HttpClientModule si estás haciendo solicitudes HTTP
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './list-category.component.html',
@@ -40,6 +45,7 @@ import { DialogGenericComponent } from '../../../shared/genericsComponents/dialo
 })
 export class ListCategoryComponent implements AfterViewInit, OnInit {
   categories: Category[] = [];
+  public categories$!: Observable<Category[]>;
   search: string = '';
 
   displayedColumns: string[] = ['id', 'descriptionCategory', 'Opciones'];
@@ -55,22 +61,20 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
     public dialog: MatDialog,
     public dialogService: DialogGenericService
   ) {}
-
   /* prueba de genericos */
 
   openDialog() {
-    this.dialogService.openDialog(FormCategoryComponent,
-      {
-        data: {
-          title: 'Crear Categoría',
-          
-        },
-       });
-     }
+    this.dialogService.openDialog(FormCategoryComponent, {
+      data: {
+        title: 'Crear Categoría',
+      },
+    });
+  }
   /* fin prueba de genericos */
 
   ngOnInit(): void {
     this.getCategories();
+    this.getsCategories();
   }
 
   getCategories(): void {
@@ -78,7 +82,9 @@ export class ListCategoryComponent implements AfterViewInit, OnInit {
       this.dataSource.data = categories;
     });
   }
-
+  getsCategories(): void {
+    this.categories$ = this.categoryService.getCategories();
+  }
   createCategory() {
     const dialogRef = this.dialog.open(FormCategoryComponent, {
       disableClose: true,

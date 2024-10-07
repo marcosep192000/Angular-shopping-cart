@@ -1,8 +1,13 @@
 
 <form [formGroup]="formGroup">
-    <h2 mat-dialog-title>{{ data.tipo === 'createMarca' ?
-        'Crear Nueva Marca' : 'Actualizar Marca' }}</h2>
-    <mat-dialog-content>
+    
+    <div  class="container__title">
+    <h2 class="title__color" mat-dialog-title>{{ data.tipo === 'createMarca' ?
+        'Registrar Marca' : 'Actualizar Marca' }}</h2>
+   </div>
+   
+   
+        <mat-dialog-content>
 
 
         <div class="container-col">

@@ -1,0 +1,87 @@
+<form [formGroup]="formGroup">
+
+    
+    <div class="container__title">
+     <h2 class="title__color"mat-dialog-title>{{ data.tipo === 'createSupplier' ?
+        'Registrar Proveedor' : 'Actualizar Proveedor' }}</h2>  
+    </div>
+    
+
+    <mat-dialog-content>
+
+        <div class="container">
+
+            <div class="col-1">
+                <mat-form-field class="input" hintLabel="Máximo 15 caracteres">
+                    <mat-label>Proveedor</mat-label>
+                    <input matInput maxlength="15" formControlName="name" />
+                    <mat-hint align="end">{{
+                        formGroup.get('name')?.value?.length
+                        }}/15</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="input" hintLabel="Máximo 30 caracteres">
+                    <mat-label>Direccion</mat-label>
+                    <input matInput maxlength="30" formControlName="address" />
+                    <mat-hint align="end">{{
+                        formGroup.get('address')?.value?.length
+                        }}/30</mat-hint>
+                </mat-form-field>
+
+            <mat-form-field class="input" hintLabel="Máximo 14 caracteres">
+                <mat-label>Telefono</mat-label>
+                <input matInput maxlength="14" formControlName="phone" (input)="onInputChange($event, 'phone')" type="text"
+                    pattern="[0-9]*" />
+                <mat-hint align="end">{{ formGroup.get('phone')?.value?.length || 0 }}/14</mat-hint>
+            </mat-form-field>
+            </div>
+
+            <!-- ************************************************************************************ -->
+
+            <div class="col-2">
+
+            <mat-form-field class="input" hintLabel="Máximo 12 caracteres">
+                <mat-label>Cuit</mat-label>
+                <input matInput maxlength="12" formControlName="cuit" (input)="onInputChange($event, 'cuit')" type="text"
+                    pattern="[0-9]*" />
+                <mat-hint align="end">{{ formGroup.get('cuit')?.value?.length || 0 }}/12</mat-hint>
+            </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field class="input">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+                    @if (emailFormControl.hasError('email') &&
+                    !emailFormControl.hasError('required')) {
+                    <mat-error>Por favor ingrese una direccion
+                        valida</mat-error>
+                    }
+                    @if (emailFormControl.hasError('required')) {
+                    <mat-error>Email es
+                        <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+
+
+<mat-form-field class="input" hintLabel="Máximo 20 caracteres">
+    <mat-label>Contacto</mat-label>
+    <input matInput maxlength="20" formControlName="contact" />
+    <mat-hint align="end">{{
+        formGroup.get('contact')?.value?.length
+        }}/15</mat-hint>
+</mat-form-field>
+
+
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <div class="btn"></div>
+        <button mat-raised-button class="warn" (click)="cancel()">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="save()"
+            *ngIf="data.tipo === 'createSupplier'">Guardar</button>
+        <button mat-raised-button color="primary" (click)="update()"
+            *ngIf="data.tipo !== 'createSupplier'">Modificar</button>
+    </mat-dialog-actions>
+</form>
