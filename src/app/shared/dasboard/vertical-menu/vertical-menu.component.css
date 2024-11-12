@@ -25,6 +25,9 @@
     background-color: #522e92;
 }
 
+
+
+
 .submenu.open {
   max-height: 500px; /* Ajusta según el contenido máximo esperado */
   opacity: 1;
@@ -47,3 +50,5 @@
   transition: background-color 1.1s ease;	
 
 }
+
+

@@ -1,0 +1,61 @@
+/* Contenedor principal */
+
+
+.container{
+    width: 500px;
+    height: 600px;;
+}
+.container__form{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__vuelto{
+     width: 100%;
+    padding: 5px;
+    background-color: #522e92;
+    color: white;
+    
+}
+
+/* Título */
+.title__color {
+    color: rgb(255, 255, 255);
+   font-size: 1.6rem;   /* Color blanco para el título */
+}
+
+/* Botón de venta */
+.btn-sale {
+  font-size: 1.6rem;              /* Tamaño de fuente */
+    color: white;   
+    text-align: center;           /* Alinea el texto al centro */
+    justify-content: center;      /* Alinea el contenido al centro horizontalmente */
+    display: flex;                /* Usa Flexbox para centrar el contenido dentro del botón */
+    align-items: center;          /* Centra verticalmente el texto */
+    border: none;                 /* Elimina el borde */
+    background-color: #522e92;    /* Color de fondo */
+    padding: 10px 20px;           /* Relleno dentro del botón */
+    border-radius: 5px;           /* Bordes redondeados */
+    cursor: pointer;             /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease; /* Transición suave */             /* Color del texto */               /* Distancia desde la parte izquierda */
+}
+.container__title{
+    display: flex;
+    justify-content:space-between; 
+}
+
+/*  mponente input precio de cobro  */
+
+.form__SalesAmount{
+    width: 100%;
+    padding: 5px;
+   
+}
+.input{
+    width: 100%;
+}
+
+
+

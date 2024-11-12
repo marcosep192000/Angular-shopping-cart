@@ -1,59 +1,92 @@
 <form [formGroup]="formGroup">
 
     <div class="container__title">
-        <h2 class="title__color" mat-dialog-title>{{ data.tipo === 'createClient' ?
-            'Crear Nuevo Cliente' : 'Actualizar Cliente' }}</h2>
+        <h2 class="title__color" mat-dialog-title>{{ data.tipo === 'createClient' ? 'Crear Nuevo Cliente' : 'Actualizar
+            Cliente' }}</h2>
     </div>
 
     <mat-dialog-content>
-        <div class="row">
+        <!-- Aplica la clase .container-col aquí -->
+        <div class="container-col">
 
-            <div class="col1"> <!-- SELECT  proveedor  LOAD  -->
-           
-<mat-form-field class="input" hintLabel="Máximo 12 caracteres">
-    <mat-label>Cuit</mat-label>
-    <input matInput maxlength="12" formControlName="cuit" (input)="onInputChange($event, 'cuit')" type="text"
-        pattern="[0-9]*" />
-    <mat-hint align="end">{{ formGroup.get('cuit')?.value?.length || 0 }}/12</mat-hint>
-</mat-form-field>
+            <!-- COLUMNA 1 -->
+            <div class="col1">
+                <mat-form-field class="input" hintLabel="Máximo 12 caracteres">
+                    <mat-label>Cuit</mat-label>
+                    <input matInput maxlength="12" formControlName="cuit" (input)="onInputChange($event, 'cuit')"
+                        type="text" pattern="[0-9]*" />
+                    <mat-hint align="end">{{ formGroup.get('cuit')?.value?.length || 0 }}/12</mat-hint>
+                </mat-form-field>
 
+                <mat-form-field class="input" hintLabel="Máximo 20 caracteres">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput maxlength="20" formControlName="name" />
+                    <mat-hint align="end">{{ formGroup.get('name')?.value?.length }}/20</mat-hint>
+                </mat-form-field>
 
-<mat-form-field class="input" hintLabel="Máximo 20 caracteres">
-    <mat-label>Nombre</mat-label>
-    <input matInput maxlength="20" formControlName="name" />
-    <mat-hint align="end">{{
-        formGroup.get('name')?.value?.length
-        }}/20</mat-hint>
-</mat-form-field>
- 
-
-
-
-            </div><!-- FIN COL1  -->
+                <mat-form-field class="input" hintLabel="Máximo 14 caracteres">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput maxlength="14" formControlName="tel" (input)="onInputChange($event, 'tel')"
+                        type="text" pattern="[0-9]*" />
+                    <mat-hint align="end">{{ formGroup.get('tel')?.value?.length || 0 }}/14</mat-hint>
+                </mat-form-field>
+            </div><!-- FIN COLUMNA 1 -->
 
             <!-- COLUMNA 2 -->
             <div class="col2">
-                <!-- DESCRIPCION  -->
                 <mat-form-field class="input" hintLabel="Máximo 20 caracteres">
                     <mat-label>Apellido/s</mat-label>
                     <input matInput maxlength="20" formControlName="lastName" />
-                    <mat-hint align="end">{{
-                        formGroup.get('lastName')?.value?.length
-                        }}/20</mat-hint>
+                    <mat-hint align="end">{{ formGroup.get('lastName')?.value?.length }}/20</mat-hint>
                 </mat-form-field>
 
-            <mat-form-field class="input" hintLabel="Máximo 20 caracteres">
-                <mat-label>Direccion</mat-label>
-                <input matInput maxlength="20" formControlName="address" />
-                <mat-hint align="end">{{
-                    formGroup.get('address')?.value?.length
-                    }}/20</mat-hint>
-            </mat-form-field>
-                
+                <mat-form-field class="input" hintLabel="Máximo 20 caracteres">
+                    <mat-label>Direccion</mat-label>
+                    <input matInput maxlength="20" formControlName="address" />
+                    <mat-hint align="end">{{ formGroup.get('address')?.value?.length }}/20</mat-hint>
+                </mat-form-field>
 
-            </div><!-- FIN DE COL 2 -->
+                <mat-form-field class="input">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Por
+                        favor ingrese una direccion valida</mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">Email es
+                        <strong>requerido</strong></mat-error>
+                </mat-form-field>
+            </div><!-- FIN COLUMNA 2 -->
 
+        </div> <!-- FIN CONTAINER-COL -->
+ <hr>
+  
+    
+<mat-slide-toggle formControlName="isChecked" (change)="onToggleChange($event)">
+    <mat-label>Activar Cuenta Corriente.</mat-label>
+</mat-slide-toggle>
+
+<!-- Contenido condicional basado en el valor de isChecked -->
+<div *ngIf="formGroup.get('isChecked')?.value" class="container-col">
+    <div class="col1">
+    <div formGroupName="cuentaCorriente">
+        <mat-form-field class="input" hintLabel="Máximo 12 caracteres">
+            <mat-label>Saldo Inicial</mat-label>
+            <!-- Aquí usamos formControlName='saldo' dentro del grupo 'cuentaCorriente' -->
+            <input matInput maxlength="12" formControlName="saldo" (input)="onInputChange($event, 'saldo')" type="text"
+                pattern="^\d*\.?\d*$" />
+            <mat-hint align="end">
+                {{ formGroup.get('cuentaCorriente.saldo')?.value?.toString().length || 0 }}/12
+            </mat-hint>
+            <mat-error *ngIf="formGroup.get('cuentaCorriente.saldo')?.hasError('pattern')">
+                Solo se permiten números y un punto decimal.
+            </mat-error>
+        </mat-form-field>
+    </div>
         </div>
+        <div class="col2" >
+
+        </div> 
+    </div>
+
 
 
     </mat-dialog-content>
@@ -61,9 +94,7 @@
     <mat-dialog-actions>
         <div class="btn"></div>
         <button mat-raised-button class="warn" (click)="cancel()">Cancelar</button>
-        <button mat-raised-button color="primary" (click)="save()"
-            *ngIf="data.tipo === 'createProduct'">Guardar</button>
-        <button mat-raised-button color="primary" (click)="update()"
-            *ngIf="data.tipo !== 'createProduct'">Modificar</button>
+        <button mat-raised-button color="primary" (click)="save()" *ngIf="data.tipo === 'createClient'">Guardar</button>
+        <button mat-raised-button color="primary" (click)="update()" *ngIf="data.tipo !== 'createClient'">Modificar</button>
     </mat-dialog-actions>
 </form>

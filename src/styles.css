@@ -4,6 +4,25 @@ html, body { height: 100%;
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
+.title__color{
+    color: white;
+}
+
+.spinner-overlay {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    position: fixed; /* Asegúrate de que esté sobre otros elementos */
+    top: 0; /* Ajusta para cubrir todo el viewport */
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho */
+    height: 100%; /* Ocupa toda la altura */
+ 
+    z-index: 1000; /* Asegúrate de que esté en la parte superior */
+}
+
+
+
 /* BOTONES */
  .actions__btn {
     margin: 5px 5px; 
@@ -26,6 +45,7 @@ color: white;
 .btn__new{
   background-color: #522e92;
   color:white;
+  height: 40px;
 }
 /*  TEXTOS   */
 

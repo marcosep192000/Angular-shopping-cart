@@ -4,6 +4,7 @@ import { Category } from './interfaces/Category';
 import { ListCategoryComponent } from './pages/crud-category/list-category/list-category.component';
 import { ListProductComponent } from './pages/crud-product/list-product/list-product.component';
 import { ListClientComponent } from './pages/crud-client/list-client/list-client.component';
+import { NewSaleComponent } from './pages/crud-sale/new-sale/new-sale.component';
 
 
 
@@ -11,4 +12,6 @@ export const routes: Routes = [
   { path: 'category-list', component: ListCategoryComponent },
   { path: 'product-list', component: ListProductComponent },
   { path: 'client-list', component: ListClientComponent },
+  { path: 'new-sale', component: NewSaleComponent },
+
 ];

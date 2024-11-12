@@ -12,10 +12,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FormClientComponent } from '../form-client/form-client.component';
- 
-
-
-
 
 @Component({
   selector: 'app-list-client',
@@ -86,7 +82,7 @@ export class ListClientComponent implements OnInit {
   }
 
   createClient() {
-    const dialogRef = this.dialog.open( FormClientComponent, {
+    const dialogRef = this.dialog.open(FormClientComponent, {
       disableClose: true,
       autoFocus: true,
       hasBackdrop: true,
@@ -108,9 +104,11 @@ export class ListClientComponent implements OnInit {
       closeOnNavigation: false,
       data: {
         tipo: 'updateClient',
-        updateProduct: id,
+        updateClient: id,
       },
     });
+   
+
     dialogRef.afterClosed().subscribe(() => {
       this.getClients();
     });

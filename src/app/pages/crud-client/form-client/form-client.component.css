@@ -4,3 +4,29 @@
 .title__color{
     color: white;
 }
+
+/* Contenedor principal */
+.container-col {
+  width: 550px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows:auto; 
+  grid-template-areas:
+  "col1 col2";
+  gap: 2px; /* Espacio entre las columnas */
+}
+
+/* Estilos para las columnas */
+.col1{
+  grid-area: col1;
+  padding: 10px;
+}
+.col2 {
+  grid-area: col2;
+  padding: 10px;
+}
+
+.input{width: 100%;}
+
+
+

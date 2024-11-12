@@ -10,7 +10,7 @@
 
     <div class="menu-item" (click)="toggleMenu('ventas')">
         Ventas
-        <div class="submenu" [class.open]="isMenuOpen('ventas')">
+        <div class="submenu"routerLink="new-sale"  [class.open]="isMenuOpen('ventas')">
         <div class="submenu-item"> nueva Venta</div>
         </div>
     </div>

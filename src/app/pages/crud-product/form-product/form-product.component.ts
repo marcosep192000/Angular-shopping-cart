@@ -92,6 +92,7 @@ export class FormProductComponent implements OnInit {
       stateIva: [false, Validators.required],
       unitOfMeasure: [''],
       status: [true],
+      iva: [''],
       salePrice: [null, Validators.required],
       productUsefulness: ['', Validators.required],
     });
@@ -106,6 +107,7 @@ export class FormProductComponent implements OnInit {
       this.productService
         .findById(this.data.updateProduct)
         .subscribe((datos) => {
+          console.log(datos);
           this.formGroup.patchValue({
             category: datos.category.id,
             marca: datos.marca.id,
@@ -115,6 +117,7 @@ export class FormProductComponent implements OnInit {
             name: datos.name,
             price: datos.price,
             stateIva: datos.stateIva,
+            iva: datos.stateIva ? 0:21,
             stock: datos.stock,
             stockMin: datos.stockMin,
             unitOfMeasure: 32,
@@ -248,10 +251,11 @@ export class FormProductComponent implements OnInit {
       // Con IVA
       const priceWithIva = priceValue * 1.21;
       finalPrice = priceWithIva + (priceValue * usefulnessValue) / 100;
+      
     }
 
     this.calculatedSalePrice = finalPrice;
-    this.formGroup.patchValue({ salePrice: finalPrice }, { emitEvent: false });
+    this.formGroup.patchValue({ salePrice: finalPrice }, { emitEvent: false});
   }
 
   onInputChange(event: Event, controlName: string): void {
@@ -259,7 +263,7 @@ export class FormProductComponent implements OnInit {
     // Filtra todos los caracteres no numéricos, excepto el punto decimal
     const filteredValue = input.value.replace(/[^0-9.]/g, '');
     // Limita la longitud a 12 caracteres
-    const finalValue = filteredValue.slice(0, 12);
+    const finalValue = filteredValue.slice(0, 10);
     const control = this.formGroup.get(controlName);
     if (control) {
       control.setValue(finalValue, { emitEvent: false });

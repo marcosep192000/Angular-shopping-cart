@@ -10,6 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterOutlet } from '@angular/router';
 import { FastAccesComponent } from "../fastAcces/fast-acces/fast-acces.component";
 import { ApiDolarComponent } from "../../api-dolar/api-dolar.component";
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
 
 @Component({
     selector: 'app-dashboard',
@@ -25,7 +27,9 @@ import { ApiDolarComponent } from "../../api-dolar/api-dolar.component";
     MatCardModule,
     RouterOutlet,
     FastAccesComponent,
-    ApiDolarComponent
+      ApiDolarComponent,
+    MatProgressSpinner
+   
 ]
 })
 export class DashboardComponent {

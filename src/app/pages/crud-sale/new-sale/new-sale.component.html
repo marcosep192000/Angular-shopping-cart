@@ -1,0 +1,105 @@
+<div class="main-container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="container__serch">
+            <input class="search__input" placeholder="Ingresa el nombre o código de producto" type="text"
+                [(ngModel)]="code" name="code">
+            <div class="actions__btn">
+                <button type="submit" class="btn__new">
+                    <mat-icon color="white">
+                        <span class="material-symbols-outlined">add_task</span>
+                    </mat-icon>
+                   
+                </button>
+            </div>
+
+       
+        </div>
+    </form>
+
+    <div *ngIf="product">
+        <h3>Producto Encontrado:</h3>
+        <p>{{ product | json }}</p>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+        <p>{{ errorMessage }}</p>
+    </div>
+
+    <div class="Container-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Stock</th>
+                    <th>IVA</th>
+                    <th>Precio Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{ product.barCode }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.salePrice | currency }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.iva }}%</td>
+                    <td>{{ product.salePrice * product.quantity | currency }}</td>
+                    <td>
+                        <button mat-fab class="btn__delete" (click)="deleteProduct(product.id)"
+                            aria-label="Eliminar producto">
+                            <mat-icon class="icon-display">delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="saleDown">
+
+ 
+<div class="container">
+    <div class="container__client">
+       <div class="client__buton">
+        <button (click)="getClient()"> Buscar liente  <mat-icon>person_search</mat-icon></button>
+     </div>
+     
+     <div class="client__data">
+
+
+
+        <div *ngIf="selectedClient">
+              
+            <p>Nombre: {{ selectedClient.name }},{{ selectedClient.lastName }}</p>
+            <p>Tel: {{ selectedClient.tel}}</p>
+        </div>  
+     </div>
+    </div>
+
+    <button class="container__totalSale"  (click)="newSale()">
+      
+   <h3><p> Productos: {{ getTotalQuantity() }}</p></h3>  
+   <h2><p><strong>Total: $ {{ getTotalPrice() | number: '1.2-2'}}</strong></p></h2>
+
+    </button>
+</div>
+    </div>
+</div>
+
+
+        <!--   id: number;
+            cuit: string; 
+        	name: string;
+        	lastName?: string;
+        	// dato a agregar proximamente birthday: string;
+        	address: string;
+        	tel: string;
+        	email: string;
+        	initialDate?: any;
+        	time?: any;
+        	status: boolean; -->

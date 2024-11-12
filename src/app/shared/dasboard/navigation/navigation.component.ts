@@ -12,6 +12,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from "../dashboard/dashboard.component";
 import { VerticalMenuComponent } from "../vertical-menu/vertical-menu.component";
 
+
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
@@ -26,7 +27,8 @@ import { VerticalMenuComponent } from "../vertical-menu/vertical-menu.component"
     AsyncPipe,
     RouterLink,
     DashboardComponent,
-    VerticalMenuComponent
+    VerticalMenuComponent,
+  
 ]
 })
 export class NavigationComponent {

@@ -16,6 +16,9 @@
             "outputPath": "dist/inventario-pixels",
             "index": "src/index.html",
             "browser": "src/main.ts",
+          "allowedCommonJsDependencies": [
+        "jspdf"
+      ],
             "polyfills": [
               "zone.js"
             ],

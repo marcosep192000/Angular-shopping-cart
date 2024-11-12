@@ -3,6 +3,7 @@ import { environments } from '../../environments/environments.prod';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../interfaces/Product';
 import { Observable } from 'rxjs';
+import { ProductItemSale } from '../interfaces/ProductItemSale';
 
 @Injectable({
   providedIn: 'root',
@@ -38,5 +39,8 @@ export class ProductService {
       `${this.base}supermarket/supermarket-delete/${id}`,
       {}
     );
+  }
+  search(query: string): Observable<ProductItemSale> {
+    return this.http.get<ProductItemSale>(`${this.base}supermarket/findByCode/${query}`);
   }
 }

@@ -1,11 +1,18 @@
 <div class="grid-container first">
-
   <main class="grid_container">
-     <aside class="sidebar">
-      <router-outlet></router-outlet>  
+    <aside class="sidebar">
+      @defer () {
+      <router-outlet></router-outlet>
+      }
+      @loading(minimum 1s) {
+      <div class="spinner-overlay" mode="indeterminate">
+        <mat-spinner></mat-spinner>
+      </div>
+      }
     </aside>
     <section class="section">
-      <app-fast-acces></app-fast-acces> <app-api-dolar></app-api-dolar>
-    </section> 
+      <app-fast-acces></app-fast-acces>
+      <app-api-dolar></app-api-dolar>
+    </section>
   </main>
 </div>

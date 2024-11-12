@@ -1,0 +1,21 @@
+<form [formGroup]="formGroup">
+<div class="container__title">
+    <h2 class="title__color" mat-dialog-title>Buscar Cliente</h2>
+</div>
+<div class="container__serch">
+    <div class="container__serch">
+        <mat-form-field class="input" hintLabel="Máximo 11 caracteres">
+            <mat-label>Dni/Cuit</mat-label>
+            <input matInput maxlength="11" formControlName="dni"/>
+            <mat-hint align="end">{{
+                formGroup.get('dni')?.value?.length
+                }}/11</mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="actions__btn">
+  <button mat-raised-button color="warn" class="actions__btn btn__search" (click)="close()">Cancelar</button>
+        <button mat-raised-button color="primary" class="actions__btn btn__search" (click)="getClientByDni()">Buscar</button>
+   
+    </div>
+</div>
+</form>
