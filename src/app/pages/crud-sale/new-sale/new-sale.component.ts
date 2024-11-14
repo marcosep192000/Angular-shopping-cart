@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonSaleService } from '../../../services/common-sale.service';
 import { SaleCommon } from '../../../interfaces/sale-common';
 import { jsPDF } from 'jspdf';
+import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 @Component({
   selector: 'app-new-sale',
   standalone: true,
@@ -34,8 +35,9 @@ import { jsPDF } from 'jspdf';
     MatPaginatorModule,
     MatTableModule,
     MatTooltip,
-    ToastrModule, // Asegúrate de usar `forRoot` aquí
-  ],
+    ToastrModule,
+    IconComponent
+],
   templateUrl: './new-sale.component.html',
   styleUrls: ['./new-sale.component.css'],
 })

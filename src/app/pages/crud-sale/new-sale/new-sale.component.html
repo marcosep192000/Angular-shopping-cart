@@ -1,7 +1,7 @@
 <div class="main-container">
     <form (ngSubmit)="onSubmit()">
         <div class="container__serch">
-            <input class="search__input" placeholder="Ingresa el nombre o código de producto" type="text"
+        <app-icon [iconSrc]="'assets/icons/barcode_reader_.png'" [iconAlt]="'Clientes'" [size]="'50px'"></app-icon>   <input class="search__input" placeholder="Ingresa el nombre o código de producto" type="text"
                 [(ngModel)]="code" name="code">
             <div class="actions__btn">
                 <button type="submit" class="btn__new">

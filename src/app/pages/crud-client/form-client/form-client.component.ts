@@ -14,6 +14,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { subscribe } from 'node:diagnostics_channel';
 import { CtaCteService } from '../../../services/cta-cte.service';
+import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 
 @Component({
   selector: 'app-form-client',
@@ -21,7 +22,6 @@ import { CtaCteService } from '../../../services/cta-cte.service';
 
   imports: [
     // Módulos de Angular
-
     MatDatepickerModule,
     ToastrModule,
     MatInputModule,
@@ -35,7 +35,8 @@ import { CtaCteService } from '../../../services/cta-cte.service';
     MatSlideToggleModule,
     // Módulo para notificaciones Toastr
     ToastrModule,
-  ],
+    IconComponent
+],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './form-client.component.html',
@@ -44,6 +45,7 @@ import { CtaCteService } from '../../../services/cta-cte.service';
 export class FormClientComponent implements OnInit {
   formGroup!: FormGroup;
   dataClient: Client[] = [];
+  getDataClient: null = null; 
   agregarCuentaCorriente = false;
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -78,7 +80,7 @@ export class FormClientComponent implements OnInit {
         ],
       ],
       lastName: ['', [Validators.required, Validators.maxLength(20)]],
-      address: ['', [Validators.required, Validators.maxLength(20)]],
+      address: ['', [Validators.required, Validators.maxLength(40)]],
       email: this.emailFormControl,
       cuentaCorriente: this.fb.group({
         saldo: [
@@ -170,7 +172,7 @@ export class FormClientComponent implements OnInit {
                 console.log('Cliente encontrado por cuit:', client); // Verificar que el cliente existe y tiene un id
                 if (client && client.id) {
                   // Asignamos el id del cliente encontrado a la cuenta corriente
-                  cuentaCorriente.client = client.id ;
+                  cuentaCorriente.client = client.id;
 
                   // Ahora guardamos la cuenta corriente
                   this.ctaCteService.save(cuentaCorriente).subscribe(
@@ -241,22 +243,119 @@ export class FormClientComponent implements OnInit {
   }
 
   update(): void {
-    this.clientService
-      .updateClient(this.data.updateClient, this.formGroup.value)
+    if (this.formGroup.valid) {
+      // Obtenemos los datos del formulario
+      const clientData = this.formGroup.value;
+      this.getDataClient = clientData; 
+      console.log(clientData, 'este es el id del cliente');
 
-      .subscribe((data) => {
-        console.log(this.formGroup.value);
-        this.dialogRef.close(data);
-        console.log(this.data.id, this.formGroup.value);
-      });
-  }
-  cancel() {
-    this.dialogRef.close();
+      // Desestructuramos los datos del formulario
+      const { cuentaCorriente, isChecked, ...clientInfo } = clientData;
+
+      // Verificamos si la opción de agregar cuenta corriente está marcada
+      if (isChecked) {
+        // Si el cliente tiene cuenta corriente en el formulario y está marcada la opción, la asignamos
+
+      
+        if (cuentaCorriente) {
+            this.ctaCteService.updateCtaCte(this.data.updateClient,cuentaCorriente).subscribe(data => {
+              data.saldo = data.saldo;
+            }, error => {
+            });
+         
+          }
+         else {
+          // Si la opción no está marcada, eliminamos la cuenta corriente
+          clientInfo.cuentaCorriente = null;
+        }
+
+        // Ahora, actualizamos el cliente
+        this.clientService
+          .updateClient(this.data.updateClient, clientInfo)
+          .subscribe(
+            (updatedClient) => {
+              // El cliente se actualizó correctamente
+              this.dialogRef.close(updatedClient); // Cerramos el modal con los datos del cliente actualizado
+              this.showSuccess(); // Mostramos el mensaje de éxito
+
+              // Si el cliente tiene cuenta corriente, actualizarla también
+              if (isChecked && cuentaCorriente) {
+                console.log('Guardando o actualizando cuenta corriente');
+                // Buscamos el cliente por su CUIT para obtener el id
+                this.clientService.getClientByDni(clientData.cuit).subscribe(
+                  (client) => {
+                    if (client && client.id) {
+                      // Asignamos el ID del cliente a la cuenta corriente
+                      cuentaCorriente.client = client.id;
+
+                      // Ahora guardamos o actualizamos la cuenta corriente
+                      this.ctaCteService.save(cuentaCorriente).subscribe(
+                        (ctaCteData) => {
+                          console.log(
+                            'Cuenta corriente guardada o actualizada:',
+                            ctaCteData
+                          );
+                        },
+                        (ctaCteError) => {
+                          this.toastr.error(
+                            'Error al guardar o actualizar la cuenta corriente.',
+                            '',
+                            {
+                              timeOut: 5000,
+                              positionClass: 'toast-bottom-right',
+                            }
+                          );
+                        }
+                      );
+                    } else {
+                      this.toastr.error(
+                        'No se encontró el cliente con el cuit proporcionado.',
+                        '',
+                        {
+                          timeOut: 5000,
+                          positionClass: 'toast-bottom-right',
+                        }
+                      );
+                    }
+                  },
+                  (error) => {
+                    console.error('Error al buscar el cliente por cuit:', error);
+                    this.toastr.error('Error al buscar el cliente.', '', {
+                      timeOut: 5000,
+                      positionClass: 'toast-bottom-right',
+                    });
+                  }
+                );
+              }
+            },
+            (error) => {
+              console.error('Error al actualizar el cliente:', error);
+              this.toastr.error('Hubo un error al actualizar el cliente.', '', {
+                timeOut: 5000,
+                positionClass: 'toast-bottom-right',
+              });
+            }
+          );
+      } else {
+        this.toastr.error(
+          'Por favor, complete todos los campos requeridos!',
+          '',
+          {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-right',
+          }
+        );
+      }
+    }
   }
 
-  onInputChange(event: any, controlName: string) {
-    const input = event.target.value.replace(/[^0-9]/g, '');
-    this.formGroup.get(controlName)?.setValue(input);
+    cancel() {
+      this.dialogRef.close();
+    }
+
+    onInputChange(event: any, controlName: string) {
+      const input = event.target.value.replace(/[^0-9]/g, '');
+      this.formGroup.get(controlName)?.setValue(input);
+    }
   }
-}
 

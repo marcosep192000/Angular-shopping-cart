@@ -97,6 +97,8 @@ export class ListClientComponent implements OnInit {
     });
   }
   updateClient(id: number) {
+  
+  
     const dialogRef = this.dialog.open(FormClientComponent, {
       disableClose: true,
       autoFocus: true,
@@ -105,6 +107,7 @@ export class ListClientComponent implements OnInit {
       data: {
         tipo: 'updateClient',
         updateClient: id,
+        
       },
     });
    

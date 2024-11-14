@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { IconComponent } from "../icon/icon.component";
 
 @Component({
   selector: 'app-vertical-menu',
   standalone: true,
-  imports: [CommonModule, RouterLink,MatProgressSpinner],
+  imports: [CommonModule, RouterLink, MatProgressSpinner, IconComponent],
   templateUrl: './vertical-menu.component.html',
   styleUrl: './vertical-menu.component.css',
 })

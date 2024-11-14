@@ -14,9 +14,9 @@ export class CtaCteService {
   save(ctaCte: CtaCte) {
     return this.httpClient.post<CtaCte>(`${this.baseUrl}CtaCte/save`, ctaCte);
   }
-  updateClient(id: number, ctaCte: CtaCte) {
+  updateCtaCte(id: number, ctaCte: CtaCte) {
     console.log(id + ' updated');
-    return this.httpClient.put<CtaCte>(`${this.baseUrl}customer/update/${id}`, ctaCte);
+    return this.httpClient.put<CtaCte>(`${this.baseUrl}CtaCte/update/${id}`, ctaCte);
   }
 }
    

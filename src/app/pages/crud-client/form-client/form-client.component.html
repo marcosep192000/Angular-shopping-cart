@@ -1,7 +1,8 @@
 <form [formGroup]="formGroup">
 
     <div class="container__title">
-        <h2 class="title__color" mat-dialog-title>{{ data.tipo === 'createClient' ? 'Crear Nuevo Cliente' : 'Actualizar
+        
+        <h2 class="title__color" mat-dialog-title><app-icon [iconSrc]="'assets/icons/group_person.png'" [iconAlt]="'Clientes'" [size]="'45px'">klklkl</app-icon>  {{ data.tipo === 'createClient' ? 'Crear Nuevo Cliente' : 'Actualizar
             Cliente' }}</h2>
     </div>
 
@@ -40,10 +41,10 @@
                     <mat-hint align="end">{{ formGroup.get('lastName')?.value?.length }}/20</mat-hint>
                 </mat-form-field>
 
-                <mat-form-field class="input" hintLabel="Máximo 20 caracteres">
+                <mat-form-field class="input" hintLabel="Máximo 40 caracteres">
                     <mat-label>Direccion</mat-label>
-                    <input matInput maxlength="20" formControlName="address" />
-                    <mat-hint align="end">{{ formGroup.get('address')?.value?.length }}/20</mat-hint>
+                    <input matInput maxlength="40" formControlName="address" />
+                    <mat-hint align="end">{{ formGroup.get('address')?.value?.length }}/40</mat-hint>
                 </mat-form-field>
 
                 <mat-form-field class="input">
@@ -58,11 +59,14 @@
 
         </div> <!-- FIN CONTAINER-COL -->
  <hr>
-  
-    
+
+    @if (!data.tipo.createClient   ){
+      
+      
+    {{data.cuentaCorriente}}
 <mat-slide-toggle formControlName="isChecked" (change)="onToggleChange($event)">
     <mat-label>Activar Cuenta Corriente.</mat-label>
-</mat-slide-toggle>
+</mat-slide-toggle>}
 
 <!-- Contenido condicional basado en el valor de isChecked -->
 <div *ngIf="formGroup.get('isChecked')?.value" class="container-col">
@@ -74,7 +78,7 @@
             <input matInput maxlength="12" formControlName="saldo" (input)="onInputChange($event, 'saldo')" type="text"
                 pattern="^\d*\.?\d*$" />
             <mat-hint align="end">
-                {{ formGroup.get('cuentaCorriente.saldo')?.value?.toString().length || 0 }}/12
+            {{ formGroup.get('cuentaCorriente.saldo')?.value | currency: 'ARS': 'symbol' : '1.0-2' }}
             </mat-hint>
             <mat-error *ngIf="formGroup.get('cuentaCorriente.saldo')?.hasError('pattern')">
                 Solo se permiten números y un punto decimal.
