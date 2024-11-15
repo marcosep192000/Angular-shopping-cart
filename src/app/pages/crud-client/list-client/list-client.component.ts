@@ -12,6 +12,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FormClientComponent } from '../form-client/form-client.component';
+import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 
 @Component({
   selector: 'app-list-client',
@@ -30,7 +31,8 @@ import { FormClientComponent } from '../form-client/form-client.component';
     MatDialogModule,
     MatInputModule,
     MatTooltip,
-  ],
+    IconComponent
+],
   templateUrl: './list-client.component.html',
   styleUrl: './list-client.component.css',
 })

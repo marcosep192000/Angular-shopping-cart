@@ -54,9 +54,10 @@ export class SearchClientByDniComponent implements OnInit {
         (data: Client) => {
           console.log(data);
           this.dialogRef.close(data); // Cierra el diálogo y pasa los datos del cliente
-          this.toastr.success('El cliente ha sido buscado correctamente');
+          this.toastr.success('Cliente Encontrado...');
         },
         (error) => {
+          
           console.error('Error fetching client:', error);
           this.toastr.error(
             'No se pudo encontrar el cliente. Intenta nuevamente.'
