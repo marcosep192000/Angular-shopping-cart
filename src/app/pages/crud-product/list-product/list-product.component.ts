@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../interfaces/Product';
 import { CommonModule } from '@angular/common';
@@ -30,7 +30,7 @@ import { DialogGenericComponent } from '../../../shared/genericsComponents/dialo
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatTooltip,
+    MatTooltipModule,
   ],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css',

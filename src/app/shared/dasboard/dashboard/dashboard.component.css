@@ -1,16 +1,30 @@
  
  .grid_container >* {
   text-align: center;
-  border-radius: 1px;
+  border-radius: 1px 1px 0px 0px;
   padding: 10px;
-   box-shadow: 1px 1px 7px 0px;
-  
+   box-shadow: 1px 1px 6px 0px;
+
 }
+
+
 
 .section {
   grid-area: section;
-width: 450px;
-   box-shadow: 1px 1px 7px 0px;
+  width: 450px;
+  position: relative; /* Asegura que el pseudo-elemento se posicione correctamente */
+ 
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px; /* Grosor de la transparencia */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 1; /* Asegura que el pseudo-elemento esté por encima de la sombra */
 }
 
 .sidebar {
@@ -27,14 +41,15 @@ width: 450px;
   grid-template-areas: 
     "section"
     "sidebar";
-  grid-auto-rows: min-content; /* Esto hace que las filas se adapten al contenido */
+    height: 85vh;
+      
 }
 
 @media (min-width: 600px) {
   /* fast Access */
   .section {
     grid-area: section;
-    width:98%;
+    width:98%; 
   }
 
   .sidebar {

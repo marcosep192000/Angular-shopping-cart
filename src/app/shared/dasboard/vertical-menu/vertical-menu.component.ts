@@ -1,17 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IconComponent } from "../icon/icon.component";
+import { TokenService } from '../../../services/token.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-vertical-menu',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatProgressSpinner, IconComponent],
+  imports: [CommonModule,RouterLink,MatProgressSpinnerModule,IconComponent],
   templateUrl: './vertical-menu.component.html',
   styleUrl: './vertical-menu.component.css',
 })
-export class VerticalMenuComponent {
+export class VerticalMenuComponent implements OnInit {
+  username!: any;
+  roles!: any;
+  constructor(private tokenService: TokenService) {}
+  ngOnInit(): void {
+    this.username = this.tokenService.getUserName();
+    this.roles = this.tokenService.getAuthorities();
+    console.log('Usuario:', this.username);
+    console.log('Roles:', this.roles);
+  }
+
+  onOut(): void {
+    this.tokenService.logOut();
+  }
+
   activeMenu: string | null = null;
 
   toggleMenu(menu: string) {
@@ -22,3 +37,4 @@ export class VerticalMenuComponent {
     return this.activeMenu === menu;
   }
 }
+

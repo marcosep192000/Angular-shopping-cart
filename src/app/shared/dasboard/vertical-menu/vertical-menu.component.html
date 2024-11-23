@@ -1,26 +1,43 @@
 
 <div class="menu">
-    <div class="menu-item" (click)="toggleMenu('proveedores')">
-        <app-icon [iconSrc]="'assets/icons/real_estate_agent.png'" [iconAlt]="'Clientes'" [size]="'30px'"></app-icon>Proveedores
+
+
+<div class="menu-item" (click)="toggleMenu('ventas')">
+    <app-icon [iconSrc]="'assets/icons/point_of_sale.png'" [iconAlt]="'Clientes'" [size]="'30px'"></app-icon> Ventas
+    <div class="submenu" routerLink="new-sale" [class.open]="isMenuOpen('ventas')">
+        <div class="submenu-item"><app-icon [iconSrc]="'assets/icons/sell.png'" [iconAlt]="'Clientes'" [size]="'24px'">
+            </app-icon> Nueva Venta</div>  
+    </div>
+<div class="submenu" [routerLink]="['cash-closing']" [class.open]="isMenuOpen('ventas')">
+ <div class="submenu-item" ><app-icon [iconSrc]="'assets/icons/savings.png'"   [size]="'24px'">
+                </app-icon> Caja</div>
+</div>
+
+</div>
+
+
+    <div class="menu-item" (click)="toggleMenu('proveedores')"routerLink="supplier-list">
+        <app-icon [iconSrc]="'assets/icons/real_estate_agent.png'"   [size]="'30px'"></app-icon>Proveedores
         <div class="submenu" [class.open]="isMenuOpen('proveedores')">
-            <div class="submenu-item">Proveedor</div>
+            <div class="submenu-item" routerLink="supplier-list">Ingresos</div>
             <div class="submenu-item">Reportes</div>
         </div>
     </div>
 
-    <div class="menu-item" (click)="toggleMenu('ventas')">
-    <app-icon [iconSrc]="'assets/icons/point_of_sale.png'" [iconAlt]="'Clientes'" [size]="'30px'"></app-icon> Ventas
-        <div class="submenu"routerLink="new-sale"  [class.open]="isMenuOpen('ventas')">
-        <div class="submenu-item"><app-icon [iconSrc]="'assets/icons/sell.png'" [iconAlt]="'Clientes'" [size]="'24px'"> </app-icon> Nueva Venta</div>
-        </div>
-    </div>
-
-        <div class="menu-item"  routerLink="client-list" (click)="toggleMenu('clientes')">
+    <div class="menu-item"  routerLink="client-list" (click)="toggleMenu('clientes')">
         <app-icon [iconSrc]="'assets/icons/group_person.png'" [iconAlt]="'Clientes'" [size]="'34px'">klklkl</app-icon>   Clientes
             <div class="submenu" [class.open]="isMenuOpen('clientes')">
-                <div class="submenu-item" >Compras</div>
+        <!--        <div class="submenu-item" >Compras</div>--> 
             </div>
         </div>
+
+        <div class="menu-item" (click)="toggleMenu('productos')"> 
+    <app-icon [iconSrc]="'assets/icons/store1.png'" [iconAlt]="'Clientes'" [size]="'30px'">klklkl</app-icon>  Productos
+        <div class="submenu" [class.open]="isMenuOpen('productos')">
+            <div class="submenu-item" [routerLink]="['product-list']"><app-icon [iconSrc]="'assets/icons/shopping_bag.png'" [iconAlt]="'Clientes'" [size]="'24px'"></app-icon>Productos</div>
+            <div class="submenu-item"  [routerLink]="['category-list']"  routerLinkActive="router-link-active"><app-icon [iconSrc]="'assets/icons/category_search.png'" [iconAlt]="'Clientes'" [size]="'24px'">klklkl</app-icon>Categorías</div>
+        </div>
+    </div>
 
         <div class="menu-item" (click)="toggleMenu('reportes')">
         <app-icon [iconSrc]="'assets/icons/monitoring.png'" [iconAlt]="'Clientes'" [size]="'30px'"></app-icon>  Reportes
@@ -32,12 +49,17 @@
 
 
 
-    <div class="menu-item" (click)="toggleMenu('productos')"> 
-    <app-icon [iconSrc]="'assets/icons/store1.png'" [iconAlt]="'Clientes'" [size]="'30px'">klklkl</app-icon>  Productos
-        <div class="submenu" [class.open]="isMenuOpen('productos')">
-            <div class="submenu-item" [routerLink]="['product-list']"><app-icon [iconSrc]="'assets/icons/shopping_bag.png'" [iconAlt]="'Clientes'" [size]="'24px'"></app-icon>Productos</div>
-            <div class="submenu-item"  [routerLink]="['category-list']"  routerLinkActive="router-link-active"><app-icon [iconSrc]="'assets/icons/category_search.png'" [iconAlt]="'Clientes'" [size]="'24px'">klklkl</app-icon>Categorías</div>
-            
-        </div>
+   
+
+<div class="menu-item"  (click)="onOut()">
+   <app-icon [iconSrc]="'assets/icons/power.png'" [iconAlt]="'Clientes'" [size]="'24px'">klklkl</app-icon>
+   Cerrar Session
+    <div class="submenu" [class.open]="isMenuOpen('clientes')">
+        <div class="submenu-item">Compras</div>
     </div>
 </div>
+<h5>usuario: {{username}}</h5>
+<h5>rol: {{roles}}</h5> 
+</div>
+
+

@@ -33,4 +33,8 @@
     height:35px;
     color:white;
 }
+.table{
+      overflow-y: auto;
+  overflow-x: auto;
+}
 

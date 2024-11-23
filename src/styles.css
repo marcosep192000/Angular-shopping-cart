@@ -65,3 +65,44 @@ color: white;
   
  }
 
+
+
+
+ /* tablas y contenedores globales para paneless */
+
+ .contenedor-global {
+  margin: 5px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+.contenedor-global h2 {
+  font-size: 1.5rem;
+  color: #4a4a4a;
+  margin-bottom: 2px;
+}
+
+.contenedor-global hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.table-container {
+  max-height: 200px; /* Ajusta esta altura según tus necesidades */
+  overflow-y: auto; /* Activa el scroll vertical si el contenido excede la altura */
+  border: 1px solid #ddd; /* Opcional: agrega un borde para delimitar la tabla */
+  padding: 10px; /* Opcional: agrega espacio alrededor de la tabla */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opcional: para diseño */
+  border-radius: 5px; /* Opcional: bordes redondeados */
+  background-color: #fff; /* Opcional: fondo blanco para la tabla */
+}
+
+/* Opcional: estiliza la tabla para ajustarse al contenedor */
+.table {
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+  border-collapse: collapse; /* Elimina espacios entre celdas */
+}
+

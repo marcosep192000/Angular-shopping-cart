@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { FormClientComponent } from '../form-client/form-client.component';
 import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 
@@ -30,8 +30,8 @@ import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatTooltip,
-    IconComponent
+    MatTooltipModule,
+    
 ],
   templateUrl: './list-client.component.html',
   styleUrl: './list-client.component.css',

@@ -7,29 +7,29 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { RouterOutlet } from '@angular/router';
+
 import { FastAccesComponent } from "../fastAcces/fast-acces/fast-acces.component";
 import { ApiDolarComponent } from "../../api-dolar/api-dolar.component";
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppComponent } from "../../../app.component";
 
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
+    templateUrl:'./dashboard.component.html',
     styleUrl: './dashboard.component.css',
     standalone: true,
     imports: [
-    AsyncPipe,
+   
     MatGridListModule,
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    RouterOutlet,
     FastAccesComponent,
-      ApiDolarComponent,
-    MatProgressSpinner
-   
+    ApiDolarComponent,
+    MatProgressSpinnerModule,
+    AppComponent
 ]
 })
 export class DashboardComponent {

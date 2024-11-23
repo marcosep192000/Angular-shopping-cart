@@ -1,0 +1,94 @@
+<section class="contenedor-global">
+    <h2>Filtrar Proveedor</h2>
+    <hr>
+    <div class="container__serch">
+        <div class="container__serch">
+            <input class="search__input" placeholder="Ingresa la categoria a buscar" type="text" ngModel=""
+                (keyup)="applyFilter($event)" value="text">
+        </div>
+        <div class="actions__btn">
+            <button class="actions__btn  btn__new" (click)="createSupplier()">Nuevo Cliente</button>
+        </div>
+    </div>
+</section>
+<section class="contenedor-global">
+    <h2>Listado de Proveedores</h2>
+    <hr>
+
+    <div class="mat-elevation-z8 table-container">
+        <table mat-table [dataSource]="dataSource" class="table">
+
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+            </ng-container>
+
+
+            <!--dni-->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Razon Social</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+            </ng-container>
+
+            <!--name-->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+            </ng-container>
+
+            <!--lastName-->
+            <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef>Telefono</th>
+                <td mat-cell *matCellDef="let element"> {{element.phone}}</td>
+            </ng-container>
+
+            <!--address-->
+            <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef>Direccion</th>
+                <td mat-cell *matCellDef="let element"> {{element.address}}</td>
+            </ng-container>
+            <!-- telefono -->
+        <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef>Contacto</th>
+            <td mat-cell *matCellDef="let element"> {{element.contact}}</td>
+        </ng-container>
+
+
+
+
+
+
+            <ng-container matColumnDef="Opciones">
+                <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                <td mat-cell *matCellDef="let element">
+
+                    <div class="container__accions">
+                        <div class="example-button-row">
+                            <button mat-fab class="btn__update" (click)="updateSupplier(element.id)"
+                                aria-label="Example icon button with a delete icon">
+                                <mat-icon>update</mat-icon>
+                            </button>
+
+                        </div>
+
+                        <div class="example-button-row">
+                            <button mat-fab class="btn__delete" (click)="deleteSupplier(element.id)"
+                                aria-label="Example icon button with a delete icon">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                </td>
+
+            </ng-container>
+            <!-- Name Column -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+</div>
+        <mat-paginator [pageSizeOptions]="[5,8]" showFirstLastButtons aria-label="Select page of periodic elements">
+        </mat-paginator>
+    
+</section>

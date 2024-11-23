@@ -1,0 +1,139 @@
+/* Estilo general de la sección */
+.caja-actual {
+  margin: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+
+
+/* Estilo para el contenedor con scroll de la tabla */
+.table-container {
+  max-height: 200px; /* Ajusta esta altura según tus necesidades */
+  overflow-y: auto; /* Activa el scroll vertical si el contenido excede la altura */
+  border: 1px solid #ddd; /* Opcional: agrega un borde para delimitar la tabla */
+  padding: 10px; /* Opcional: agrega espacio alrededor de la tabla */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Opcional: para diseño */
+  border-radius: 5px; /* Opcional: bordes redondeados */
+  background-color: #fff; /* Opcional: fondo blanco para la tabla */
+}
+
+/* Opcional: estiliza la tabla para ajustarse al contenedor */
+.table {
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+  border-collapse: collapse; /* Elimina espacios entre celdas */
+}
+
+
+.caja-actual h2 {
+  font-size: 1.5rem;
+  color: #4a4a4a;
+  margin-bottom: 2px;
+}
+
+.caja-actual hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+/* Contenedor principal */
+.container__search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eae7f6;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 15px; /* Espaciado entre elementos */
+  flex-wrap: wrap; /* Permitir que los elementos se ajusten en pantallas pequeñas */
+}
+
+/* Información de la caja */
+.info p {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* Ajustar contenido largo en dispositivos pequeños */
+  justify-content: space-between;
+  font-size: 1rem;
+  color: #333;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.btn-caja-abierta {
+  margin-right: 8px;
+}
+
+/* Botón de acciones */
+.actions .btn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #532e92;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actions .btn:hover {
+  background-color: #3a206e;
+}
+
+.actions .btn__new {
+  background-color: #ff5722;
+}
+
+.actions .btn__new:hover {
+  background-color: #e64a19;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .caja-actual {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .container__search {
+    flex-direction: column; /* Apilar elementos en pantallas pequeñas */
+    align-items: stretch;
+  }
+
+  .info p {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .actions .btn {
+    width: 100%; /* Botón ocupa todo el ancho */
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .caja-actual h2 {
+    font-size: 1.2rem;
+  }
+
+  .container__search {
+    padding: 10px;
+  }
+
+  .info p {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .actions .btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}

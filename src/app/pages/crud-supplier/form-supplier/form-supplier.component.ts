@@ -1,4 +1,4 @@
-import { Component, Inject, Provider } from '@angular/core';
+import { Component, Inject, OnInit, Provider } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SupplierService } from '../../../services/supplier.service';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
@@ -43,17 +43,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatFormFieldModule,
     FormsModule,
     MatFormFieldModule,
-  MatError,
+    MatError,
     ReactiveFormsModule,
   ],
   templateUrl: './form-supplier.component.html',
   styleUrl: './form-supplier.component.css',
 })
-export class FormSupplierComponent {
+export class FormSupplierComponent implements OnInit {
   [x: string]: any;
   formGroup!: FormGroup;
-  suplier: Supplier[] = []
-  
+  suplier: Supplier[] = [];
+
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -83,6 +83,23 @@ export class FormSupplierComponent {
       email: this.emailFormControl,
     });
   }
+  ngOnInit(): void {
+     if (this.data.updateSupplier != null) {
+       this.suppleierService
+         .findById(this.data.updateSupplier)
+         .subscribe((datos) => {
+           console.log(datos);
+           this.formGroup.patchValue({
+             name: datos.name,
+             cuit:  datos.cuit,
+             phone:datos.phone,
+             address:datos.address,
+             contact:datos.contact,
+             email: datos.email,
+           });
+         });
+     }
+  }
 
   isErrorState(
     control: FormControl | null,
@@ -96,12 +113,11 @@ export class FormSupplierComponent {
     );
   }
 
-
   cancel() {
     this.dialogRef.close();
   }
   save() {
-    console.log(this.formGroup.value); 
+    console.log(this.formGroup.value);
     if (this.formGroup.value) {
       this.suppleierService.createSupplier(this.formGroup.value).subscribe({
         next: (data) => {
@@ -119,14 +135,22 @@ export class FormSupplierComponent {
     } else {
       this.toast.error('Formulario inválido. Por favor, revisa los campos.');
     }
+  }
+ 
+  update(): void {
 
-    }
-  update() {}
+    this.suppleierService
+      .update(this.data.updateSupplier, this.formGroup.value)
+      .subscribe((data) => {
+        console.log(this.formGroup.value);
+        this.dialogRef.close(data);
+      });
+  }
 
 
 
   /* hacer que sea una funcion generica para cada formulario con numeros  */
-  onInputChange(event: any,controlName:string) {
+  onInputChange(event: any, controlName: string) {
     const input = event.target.value.replace(/[^0-9]/g, '');
     this.formGroup.get(controlName)?.setValue(input);
   }
