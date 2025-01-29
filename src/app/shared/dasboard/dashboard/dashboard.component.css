@@ -58,11 +58,11 @@
   }
 
   .grid_container {
-    grid-template-columns: 78% 20%; /* Define dos columnas, una 70% y la otra 30% */
+    grid-template-columns: 78%; /* Define dos columnas, una 70% y la otra 30% */
     padding: 0px 15px 10px 10px  ;
     grid-template-rows: auto; /* Las filas se adaptan automáticamente al contenido */
     grid-template-areas: 
-      "sidebar section"; /* Coloca la barra lateral en la primera columna y la sección en la segunda */
+      "sidebar sidebar"; /* Coloca la barra lateral en la primera columna y la sección en la segunda */
   }
 }
 

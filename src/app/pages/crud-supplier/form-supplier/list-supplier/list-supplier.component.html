@@ -1,13 +1,16 @@
+  <!-- PAGINA PRINCIPAL DE PROVEEDOR -->
+<mat-tab-group class="tab_group" [selectedIndex]="2">
+    <mat-tab label="Administracion Proveedores"> 
+<!--  primer formulario  -->
+
 <section class="contenedor-global">
-    <h2>Filtrar Proveedor</h2>
-    <hr>
     <div class="container__serch">
         <div class="container__serch">
-            <input class="search__input" placeholder="Ingresa la categoria a buscar" type="text" ngModel=""
+            <input class="search__input" placeholder="  Ingresa El Proveedor a buscar" type="text" ngModel=""
                 (keyup)="applyFilter($event)" value="text">
         </div>
         <div class="actions__btn">
-            <button class="actions__btn  btn__new" (click)="createSupplier()">Nuevo Cliente</button>
+            <button class="actions__btn  btn__new" (click)="createSupplier()">Nuevo Proveedor</button>
         </div>
     </div>
 </section>
@@ -49,10 +52,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.address}}</td>
             </ng-container>
             <!-- telefono -->
-        <ng-container matColumnDef="contact">
-            <th mat-header-cell *matHeaderCellDef>Contacto</th>
-            <td mat-cell *matCellDef="let element"> {{element.contact}}</td>
-        </ng-container>
+            <ng-container matColumnDef="contact">
+                <th mat-header-cell *matHeaderCellDef>Contacto</th>
+                <td mat-cell *matCellDef="let element"> {{element.contact}}</td>
+            </ng-container>
 
 
 
@@ -87,8 +90,17 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-</div>
-        <mat-paginator [pageSizeOptions]="[5,8]" showFirstLastButtons aria-label="Select page of periodic elements">
-        </mat-paginator>
-    
+    </div>
+    <mat-paginator [pageSizeOptions]="[5,8]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+
 </section>
+<!--  fin primer formulario  -->
+    </mat-tab>
+
+    <mat-tab label="Pago a Proveedores"><app-pay-supplier></app-pay-supplier></mat-tab>
+    <mat-tab label="Registrar Ingresos"> <app-register-income-supplier></app-register-income-supplier>></mat-tab>
+</mat-tab-group>
+
+  
+  

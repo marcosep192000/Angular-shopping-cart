@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr'; // Asegúrate de importar correctamente ToastrModule
 import { Client } from '../../../interfaces/Client';
 import { ProductItemSale } from '../../../interfaces/ProductItemSale';
@@ -34,7 +34,7 @@ import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
     MatInputModule,
     MatPaginatorModule,
     MatTableModule,
-    MatTooltip,
+    MatTooltipModule,
     ToastrModule,
     IconComponent
 ],
@@ -72,7 +72,8 @@ export class NewSaleComponent implements OnInit {
           if (existingProduct.stock > existingProduct.quantity) {
             existingProduct.quantity += 1;
           } else {
-            this.errorMessage = 'Excede al stock deseado.';
+           this.toastr.error('Excede al stock deseado.');
+            
           }
         } else {
           // Si no, agregar el producto a la lista con cantidad inicial 1
@@ -107,7 +108,7 @@ export class NewSaleComponent implements OnInit {
     );
   }
 
-  getClient() {
+  getClient() {//lama al componente para buscar un cliente y luego mostrarlo 
     const dialogRef = this.dialog.open(SearchClientByDniComponent, {
       disableClose: true,
       autoFocus: true,
@@ -117,10 +118,9 @@ export class NewSaleComponent implements OnInit {
         tipo: 'createProduct',
       },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Cliente seleccionado:', result);
+       // console.log('Cliente seleccionado:', result);
         this.selectedClient = result; // Almacena el cliente seleccionado
       }
     });

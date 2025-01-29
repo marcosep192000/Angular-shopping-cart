@@ -20,7 +20,7 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 100;
 }
 .color{
   color: white;
@@ -55,3 +55,34 @@ text-align:left;
   width: 150px;
   height: 150px;
 }
+
+
+.container__barra {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* O un ancho adecuado */
+  padding: 30px; /* Opcional, para agregar espacio interno */
+  box-sizing: border-box; /* Asegura que padding no afecte el tamaño total */
+}
+
+
+ .barra__span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff; /* Color del texto */
+}
+
+.barra__logout button {
+  background-color: transparent; /* Botón sin fondo */
+  border: none; /* Sin borde */
+  cursor: pointer;font-size: 18px;
+}
+
+.barra__logout mat-icon {
+  font-size: 24px; /* Tamaño del ícono */
+  color: #ffffff; /* Color del ícono */
+}
+
+ 

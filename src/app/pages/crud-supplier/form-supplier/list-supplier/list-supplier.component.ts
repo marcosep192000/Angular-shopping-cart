@@ -13,11 +13,16 @@ import { Supplier } from '../../../../interfaces/supplier';
 import { SupplierService } from '../../../../services/supplier.service';
 import { FormSupplierComponent } from '../form-supplier.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { DialogGenericComponent } from '../../../../shared/genericsComponents/dialog-generic/dialog-generic.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { PaySupplierComponent } from '../../pay-supplier/pay-supplier/pay-supplier.component';
+import { RegisterIncomeSupplierComponent } from "../../register-income-supplier/register-income-supplier/register-income-supplier.component";
 
 @Component({
   selector: 'app-list-supplier',
   standalone: true,
   imports: [
+    MatTabsModule,
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
@@ -31,7 +36,9 @@ import { DialogRef } from '@angular/cdk/dialog';
     MatDialogModule,
     MatInputModule,
     MatTooltipModule,
-  ],
+    PaySupplierComponent,
+    RegisterIncomeSupplierComponent
+],
 
   templateUrl: './list-supplier.component.html',
   styleUrl: './list-supplier.component.css',
@@ -51,7 +58,7 @@ export class ListSupplierComponent implements OnInit {
   constructor(
     private supplierService: SupplierService,
     public dialog: MatDialog
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getSuppliers();
   }
@@ -85,16 +92,16 @@ export class ListSupplierComponent implements OnInit {
   }
   // fin nuevo proveedor
 
-  //modificar proveedor 
+  //modificar proveedor
   updateSupplier(id: number) {
-  const dialogRef = this.dialog.open(FormSupplierComponent, {
+    const dialogRef = this.dialog.open(FormSupplierComponent, {
       disableClose: true,
       autoFocus: true,
       hasBackdrop: true,
       closeOnNavigation: false,
       data: {
-        tipo: "updateSupplier",
-         updateSupplier: id,
+        tipo: 'updateSupplier',
+        updateSupplier: id,
       },
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -102,14 +109,31 @@ export class ListSupplierComponent implements OnInit {
     });
   }
 
-
-// fin actualizar proveedor 
-
-
+  // fin actualizar proveedor
 
   deleteSupplier(id: number): void {
-    this.supplierService.deleteSupplier(id).subscribe(() => {
-      this.getSuppliers();
+    const dialogRef = this.dialog.open(DialogGenericComponent, {
+      disableClose: true,
+      autoFocus: true,
+      hasBackdrop: true,
+      closeOnNavigation: false,
+      data: {
+        component: 'updateProduct', // O cualquier otro componente relevante
+        data: `Eliminar`, // Aquí pasas el mensaje
+        state: 'Eliminar',
+        icon: 'delete', // Ícono que quieres mostrar
+        message: `¿Estás seguro de eliminar el proveedor con ID ${id}?`,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == true) {
+        this.supplierService.deleteSupplier(id).subscribe((result) => {
+          console.log(result);
+          this.getSuppliers();
+        });
+      } else {
+        // no se ha borrado el proveedor
+      }
     });
   }
   getSuppliers(): void {

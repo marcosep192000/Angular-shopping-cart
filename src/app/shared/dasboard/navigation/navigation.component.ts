@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,6 +11,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from "../dashboard/dashboard.component";
 import { VerticalMenuComponent } from "../vertical-menu/vertical-menu.component";
+import { TokenService } from '../../../services/token.service';
 
 
 @Component({
@@ -25,13 +26,25 @@ import { VerticalMenuComponent } from "../vertical-menu/vertical-menu.component"
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    RouterLink,
     DashboardComponent,
     VerticalMenuComponent,
   
 ]
 })
-export class NavigationComponent {
+export class NavigationComponent  implements OnInit {
+logout() {
+ 
+    this.tokenService.logOut();
+  
+}
+ 
+  constructor(   private tokenService: TokenService) { }
+  ngOnInit(): void {
+this.username = this.tokenService.getUserName();
+this.roles = this.tokenService.getAuthorities();
+console.log('Usuario:', this.username);
+console.log('Roles:', this.roles);
+  }
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -39,4 +52,6 @@ export class NavigationComponent {
       map(result => result.matches),
       shareReplay()
     );
+username: any;
+roles: any;
 }

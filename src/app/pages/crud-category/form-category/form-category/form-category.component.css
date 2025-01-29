@@ -4,10 +4,10 @@
 
 .input__text {
   /* Aplica estilos al input directamente */
-     border-radius: 10px ;
+     border-radius: 10px;
     size: 10px;
     margin-bottom: 20px;
-    height: 25px ;
+    height: 25px;
 
 }
 .container__text{

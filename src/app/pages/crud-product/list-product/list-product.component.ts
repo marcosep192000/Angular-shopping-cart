@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../interfaces/Product';
 import { CommonModule } from '@angular/common';
@@ -66,7 +66,7 @@ export class ListProductComponent implements OnInit {
   getProducts(): void {
     this.productService.getProducts().subscribe((product) => {
       const filteredProducts = product.filter(
-        (product) => product.status.valueOf() === true
+        (product) => product.status.valueOf() === false
       );
       this.dataSource.data = filteredProducts;
     });
@@ -120,8 +120,10 @@ export class ListProductComponent implements OnInit {
       closeOnNavigation: false,
       data: {
         component: 'createProduct', // O cualquier otro componente relevante
-        data: `¿Estás seguro de eliminar el Producto con ID ${id}?`, // Aquí pasas el mensaje
+        data: `Eliminar Producto`, // Aquí pasas el mensaje
         state: 'Eliminar',
+        icon: 'delete', // Ícono que quieres mostrar
+        message: `¿Estás seguro de eliminar el Producto con ID ${id}?`,
       },
     });
 

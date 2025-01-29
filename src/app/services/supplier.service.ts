@@ -35,6 +35,13 @@ export class SupplierService {
     return this.http.post<Supplier>(`${this.base}provider/create`, supplier);
   }
   deleteSupplier(id: number): Observable<Supplier> {
-    return this.http.delete<Supplier>(`${this.base}provider/delete/${id}`);
+    return this.http.delete<Supplier>(`${this.base}provider/deleted/${id}`);
   }
+
+  getPayMethod(): Observable<string[]> { 
+    return this.http.get<string[]>(
+      `${this.base}supplier-pay-conditions/type-account`);
+  }
+
+  
 }

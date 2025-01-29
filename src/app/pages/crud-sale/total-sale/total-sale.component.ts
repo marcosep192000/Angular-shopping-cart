@@ -61,17 +61,15 @@ export class TotalSaleComponent implements OnInit {
     });
   }
   //---------------------------------
-
   cancel() {
     this.dialogRef.close();
   }
-
   save() {
     if (this.difference > 0) {
       this.toastr.error('Aún hay un saldo pendiente por abonar.');
       return;
     }
-
+    
     const saleData = {
       amountPaid: this.amountPaid,
       change: this.change,
@@ -92,7 +90,6 @@ export class TotalSaleComponent implements OnInit {
     const control = this.formGroup.get(controlName);
     if (control) {
       control.setValue(finalValue, { emitEvent: false });
-
       // Actualiza el monto pagado (esto es lo que se va a utilizar para calcular el vuelto)
       this.amountPaid = parseFloat(finalValue) || 0; // Si el valor no es válido, se toma 0
       this.calculateDifference();

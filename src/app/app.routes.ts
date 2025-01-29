@@ -4,7 +4,7 @@ import { ListProductComponent } from './pages/crud-product/list-product/list-pro
 import { ListClientComponent } from './pages/crud-client/list-client/list-client.component';
 import { NewSaleComponent } from './pages/crud-sale/new-sale/new-sale.component';
 import { LoginComponent } from './pages/login/login.component';
- 
+
 import { RegistroComponent } from './pages/registro/registro.component';
 import { NavigationComponent } from './shared/dasboard/navigation/navigation.component';
 import { authGuard } from './auth/guard/auth.guard';
@@ -12,7 +12,6 @@ import { CashClosingComponent } from './pages/crud-cash-closing/cash-closing/cas
 import { SupplierService } from './services/supplier.service';
 import { ListSupplierComponent } from './pages/crud-supplier/form-supplier/list-supplier/list-supplier.component';
 
- 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
@@ -30,7 +29,7 @@ export const routes: Routes = [
       { path: 'product-list', component: ListProductComponent },
       { path: 'client-list', component: ListClientComponent },
       { path: 'new-sale', component: NewSaleComponent },
-      {'path': 'supplier-list', component: ListSupplierComponent}
+      { path: 'supplier-list', component: ListSupplierComponent },
     ],
   },
 

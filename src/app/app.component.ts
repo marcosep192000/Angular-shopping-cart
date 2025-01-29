@@ -6,6 +6,7 @@ import { NavigationComponent } from "./shared/dasboard/navigation/navigation.com
 import { CommonModule } from '@angular/common';
 
 import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/
     RouterModule,
     CommonModule,
     MatProgressSpinnerModule,
+    MatNativeDateModule,
   ],
 })
 export class AppComponent {

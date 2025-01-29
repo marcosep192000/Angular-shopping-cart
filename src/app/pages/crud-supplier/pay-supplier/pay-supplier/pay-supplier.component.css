@@ -1,0 +1,31 @@
+*{
+    z-index: 0;
+}
+
+.contenedor-global {
+     display:flex;align-items: center;
+ flex-wrap: wrap;
+}
+
+
+.input{width: 50%;
+    margin-bottom: 10px;
+    margin: 10px;
+}
+
+.contenedor-form{
+ display:flex;
+ flex-wrap: wrap;
+ width: 100%;
+ 
+}
+.col { 
+    display: flex;
+width: 100%;   
+ align-items: center;
+ justify-content: center;
+}
+.comentarios { 
+    width: 74%;
+    margin: 0;;
+}

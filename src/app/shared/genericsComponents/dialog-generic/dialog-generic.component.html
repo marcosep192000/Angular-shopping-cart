@@ -1,8 +1,21 @@
-<h2 mat-dialog-title>{{data.data}}</h2>
+
+
+    <div class="container_title">
+       
+            
+            <div class="text"><app-icon class="color-icon" [iconSrc]="'assets/icons/cancel.png'" [size]="'45px'">
+                </app-icon>{{data.data}}</div>
+            
+            
+    </div>
 <mat-dialog-content>
+    <div ><app-icon class="color-icon" [iconSrc]="'assets/icons/savings.png'" [size]="'24px'">
+        </app-icon> {{data.message}}</div>
    
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button (click)="onCancel()">Cancelar</button>
-    <button mat-button (click)="onSave()">{{data.state}}</button>
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSave()">{{data.state}}</button>
 </mat-dialog-actions>
+
+

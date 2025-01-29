@@ -1,8 +1,15 @@
+ *{
+  z-index: 0;
+ }
 .container__accions{
     display: flex;
     
     
 }
+ .tab_group{
+  z-index: -100;
+     /*
+ }
 
 .contenedor-global {
   margin: 10px;
