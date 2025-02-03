@@ -44,7 +44,7 @@ export class SearchClientByDniComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.formGroup = this.fb.group({
-      dni: ['20325586592', Validators.required],
+      dni: ['0', Validators.required],
     });
   }
 
