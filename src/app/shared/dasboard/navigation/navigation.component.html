@@ -13,6 +13,7 @@
 
   </mat-sidenav>
   <mat-sidenav-content>
+   
     <mat-toolbar color="primary">
       @if (isHandset$ | async) {
       <button type="button" aria-label="Toggle sidenav" mat-icon-button
@@ -28,7 +29,7 @@
         <span class="barra__span">Inventario Pixels</span>
         <div class="barra__logout">
           <button mat-icon-button (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>Salir
+          <app-icon [iconSrc]="'assets/icons/power.png'" [iconAlt]="'salir'" [size]="'30px'"></app-icon>
           </button>
         </div>
      </div>  

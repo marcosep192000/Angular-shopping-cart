@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
+import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 @Component({
   selector: 'app-total-sale',
   standalone: true,
@@ -30,7 +31,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatError,
     ReactiveFormsModule,
-  ],
+    IconComponent
+],
   templateUrl: './total-sale.component.html',
   styleUrl: './total-sale.component.css',
 })

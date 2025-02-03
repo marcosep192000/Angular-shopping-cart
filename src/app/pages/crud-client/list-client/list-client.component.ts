@@ -13,6 +13,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { FormClientComponent } from '../form-client/form-client.component';
 import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
+import { DialogGenericComponent } from '../../../shared/genericsComponents/dialog-generic/dialog-generic.component';
 
 @Component({
   selector: 'app-list-client',
@@ -31,7 +32,7 @@ import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
     MatDialogModule,
     MatInputModule,
     MatTooltipModule,
-    
+    IconComponent
 ],
   templateUrl: './list-client.component.html',
   styleUrl: './list-client.component.css',
@@ -68,7 +69,7 @@ export class ListClientComponent implements OnInit {
   getClients(): void {
     this.clientService.getClients().subscribe((client) => {
       const filteredProducts = client.filter(
-        (client) => client.status.valueOf() === true
+        (client) => client.status.valueOf() === false
       );
       this.dataSource.data = filteredProducts;
     });
@@ -84,6 +85,8 @@ export class ListClientComponent implements OnInit {
   }
 
   createClient() {
+
+    
     const dialogRef = this.dialog.open(FormClientComponent, {
       disableClose: true,
       autoFocus: true,
@@ -118,10 +121,36 @@ export class ListClientComponent implements OnInit {
       this.getClients();
     });
   }
-  deleteClient(id: number) {
+  deleteCliento(id: number) {
     console.log(id);
     this.clientService.delete(id).subscribe(() => {
       this.getClients();
     });
   }
+
+  deleteClient(id: number): void {
+      const dialogRef = this.dialog.open(DialogGenericComponent, {
+        disableClose: true,
+        autoFocus: true,
+        hasBackdrop: true,
+        closeOnNavigation: false,
+        data: {
+          component: 'updateProduct', // O cualquier otro componente relevante
+          data: `Eliminar`, // Aquí pasas el mensaje
+          state: 'Eliminar',
+          icon: 'delete', // Ícono que quieres mostrar
+          message: `¿Estás seguro de eliminar el Cliente con ID ${id}?`,
+        },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result == true) {
+          this.clientService.delete(id).subscribe((result) => {
+            console.log(result);
+            this.getClients();
+          });
+        } else {
+          // no se ha borrado el Cliente
+        }
+      });
+    }
 }

@@ -11,7 +11,7 @@ import { ResponseAcceso } from '../interfaces/ResponseAcceso';
 })
 export class AccessoService {
   private http = inject(HttpClient);
-  baseUrl: string = environments.baseURL1;
+  baseUrl: string = environments.baseURL;
   constructor() {}
 
   registrarse(objeto: Usuario): Observable<ResponseAcceso> {

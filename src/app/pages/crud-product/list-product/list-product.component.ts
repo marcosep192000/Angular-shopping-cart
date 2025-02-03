@@ -13,6 +13,7 @@ import { Product } from '../../../interfaces/Product';
 import { CommonModule } from '@angular/common';
 import { FormProductComponent } from '../form-product/form-product.component';
 import { DialogGenericComponent } from '../../../shared/genericsComponents/dialog-generic/dialog-generic.component';
+import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 
 @Component({
   selector: 'app-list-product',
@@ -31,7 +32,8 @@ import { DialogGenericComponent } from '../../../shared/genericsComponents/dialo
     MatDialogModule,
     MatInputModule,
     MatTooltipModule,
-  ],
+    IconComponent
+],
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css',
 })

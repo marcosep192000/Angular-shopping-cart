@@ -64,7 +64,7 @@
                     <div class="example-button-row">
                         <button mat-fab class="btn__update" (click)="updateClient(element.id)"
                             aria-label="Example icon button with a delete icon">
-                            <mat-icon>update</mat-icon>
+                            <app-icon [iconSrc]="'assets/icons/task.png'" [size]="'20px'"></app-icon>
                         </button>
 
                     </div>
@@ -72,7 +72,7 @@
                     <div class="example-button-row">
                         <button mat-fab class="btn__delete" (click)="deleteClient(element.id)"
                             aria-label="Example icon button with a delete icon">
-                            <mat-icon>delete</mat-icon>
+                            <app-icon [iconSrc]="'assets/icons/delete.png'" [size]="'20px'"></app-icon>
                         </button>
                     </div>
                 </div>

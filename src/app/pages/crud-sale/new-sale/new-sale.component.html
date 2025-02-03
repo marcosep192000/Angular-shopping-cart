@@ -1,12 +1,12 @@
 <div class="main-container">
     <form (ngSubmit)="onSubmit()">
         <div class="container__serch">
-        <app-icon [iconSrc]="'assets/icons/barcode_reader_.png'" [iconAlt]="'Clientes'" [size]="'50px'"></app-icon>   <input class="search__input" placeholder="Ingresa el nombre o código de producto" type="text"
+        <app-icon [iconSrc]="'assets/icons/barcode_reader_.png'"  [size]="'40px'"></app-icon>   <input class="search__input" placeholder="Ingresa el nombre o código de producto" type="text"
                 [(ngModel)]="code" name="code">
             <div class="actions__btn">
                 <button type="submit" class="btn__new">
                     <mat-icon color="white">
-                        <span class="material-symbols-outlined">add_task</span>
+                        <app-icon [iconSrc]="'assets/icons/task.png'"  [size]="'20px'"></app-icon>
                     </mat-icon>
                    
                 </button>
@@ -51,7 +51,7 @@
                     <td>
                         <button mat-fab class="btn__delete" (click)="deleteProduct(product.id)"
                             aria-label="Eliminar producto">
-                            <mat-icon class="icon-display">delete</mat-icon>
+                            <app-icon [iconSrc]="'assets/icons/delete.png'" [size]="'20px'"></app-icon>
                         </button>
                     </td>
                 </tr>
@@ -65,9 +65,9 @@
 <div class="container">
     <div class="container__client">
        <div class="client__buton">
-        <button (click)="getClient()"> Buscar liente  <mat-icon>person_search</mat-icon></button>
+        <button (click)="getClient()"   > Buscar Cliente    <app-icon [iconSrc]="'assets/icons/cliente.png'" [iconAlt]="'salir'" [size]="'30px'"></app-icon></button>
      </div>
-     
+
      <div class="client__data">
 
 

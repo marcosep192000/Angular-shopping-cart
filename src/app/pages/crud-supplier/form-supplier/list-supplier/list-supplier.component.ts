@@ -17,6 +17,7 @@ import { DialogGenericComponent } from '../../../../shared/genericsComponents/di
 import { MatTabsModule } from '@angular/material/tabs';
 import { PaySupplierComponent } from '../../pay-supplier/pay-supplier/pay-supplier.component';
 import { RegisterIncomeSupplierComponent } from "../../register-income-supplier/register-income-supplier/register-income-supplier.component";
+import { IconComponent } from "../../../../shared/dasboard/icon/icon.component";
 
 @Component({
   selector: 'app-list-supplier',
@@ -37,7 +38,8 @@ import { RegisterIncomeSupplierComponent } from "../../register-income-supplier/
     MatInputModule,
     MatTooltipModule,
     PaySupplierComponent,
-    RegisterIncomeSupplierComponent
+    RegisterIncomeSupplierComponent,
+    IconComponent
 ],
 
   templateUrl: './list-supplier.component.html',

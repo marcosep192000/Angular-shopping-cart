@@ -42,6 +42,6 @@ export class ClientService {
   }
   // Delete client by ID
   delete(id: number) {
-    return this.http.delete(`${this.baseUrl}customer/${id}`);
+    return this.http.delete(`${this.baseUrl}customer/delete-supplier/${id}`);
   }
 }

@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { subscribe } from 'node:diagnostics_channel';
 import { CtaCteService } from '../../../services/cta-cte.service';
 import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
+import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-form-client',
@@ -35,8 +36,8 @@ import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
     MatSlideToggleModule,
     // Módulo para notificaciones Toastr
     ToastrModule,
-    IconComponent
-],
+    IconComponent,
+  ],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './form-client.component.html',
@@ -45,7 +46,7 @@ import { IconComponent } from "../../../shared/dasboard/icon/icon.component";
 export class FormClientComponent implements OnInit {
   formGroup!: FormGroup;
   dataClient: Client[] = [];
-  getDataClient: null = null; 
+  getDataClient: null = null;
   agregarCuentaCorriente = false;
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -130,100 +131,7 @@ export class FormClientComponent implements OnInit {
   }
 
   save(): void {
-    if (this.formGroup.valid) {
-      // Obtenemos todos los datos del formulario
-      const clientData = this.formGroup.value;
-      const clientCuit = this.formGroup.get('cuit')?.value; // Accedemos al Cuit correctamente
-
-      console.log('Datos del cliente:', clientData); // Agregar un log para verificar los datos que estamos enviando
-
-      // Desestructuramos el objeto, excluyendo 'cuentaCorriente' y 'agregarCuentaCorriente'
-      const { cuentaCorriente, agregarCuentaCorriente, ...clientInfo } =
-        clientData;
-
-      // Si el cliente tiene cuenta corriente y se marca la opción 'agregarCuentaCorriente',
-      // entonces lo incluimos en el objeto clientInfo
-      if (agregarCuentaCorriente) {
-        if (!cuentaCorriente) {
-          clientInfo.cuentaCorriente = {
-            client: { cuit: clientCuit },
-            saldo: 0, // Inicia con saldo 0
-          };
-        } else {
-          clientInfo.cuentaCorriente.client = { cuit: clientCuit }; // Asocia el cliente a la cuenta corriente
-        }
-      } else {
-        clientInfo.cuentaCorriente = null; // Si no se marca la opción, eliminamos cuentaCorriente
-      }
-
-      // Guardamos el cliente primero
-      this.clientService.addClient(clientInfo).subscribe(
-        (data) => {
-          console.log('Cliente guardado correctamente:', data); // Agregar un log aquí también
-          this.dialogRef.close(data); // Cierra el modal con los datos del cliente guardado
-          this.showSuccess(); // Muestra un mensaje de éxito
-
-          // Verificamos si se necesita asociar una cuenta corriente
-          if (this.isChecked && cuentaCorriente) {
-            console.log('Guardando cuenta corriente:', cuentaCorriente);
-            // Buscar el cliente por su cuit para obtener el id
-            this.clientService.getClientByDni(clientCuit).subscribe(
-              (client) => {
-                console.log('Cliente encontrado por cuit:', client); // Verificar que el cliente existe y tiene un id
-                if (client && client.id) {
-                  // Asignamos el id del cliente encontrado a la cuenta corriente
-                  cuentaCorriente.client = client.id;
-
-                  // Ahora guardamos la cuenta corriente
-                  this.ctaCteService.save(cuentaCorriente).subscribe(
-                    (ctaCteData) => {
-                      console.log('Cuenta corriente guardada:', ctaCteData);
-                    },
-                    (ctaCteError) => {
-                      console.error(
-                        'Error al guardar la cuenta corriente:',
-                        ctaCteError
-                      ); // Verificar error
-                      this.toastr.error(
-                        'Error al guardar la cuenta corriente.',
-                        '',
-                        {
-                          timeOut: 5000,
-                          positionClass: 'toast-bottom-right',
-                        }
-                      );
-                    }
-                  );
-                } else {
-                  this.toastr.error(
-                    'No se encontró el cliente con el cuit proporcionado.',
-                    '',
-                    {
-                      timeOut: 5000,
-                      positionClass: 'toast-bottom-right',
-                    }
-                  );
-                }
-              },
-              (error) => {
-                console.error('Error al buscar el cliente por cuit:', error);
-                this.toastr.error('Error al buscar el cliente.', '', {
-                  timeOut: 5000,
-                  positionClass: 'toast-bottom-right',
-                });
-              }
-            );
-          }
-        },
-        (error) => {
-          console.error('Error al guardar el cliente:', error);
-          this.toastr.error('Hubo un error al guardar el cliente.', '', {
-            timeOut: 5000,
-            positionClass: 'toast-bottom-right',
-          });
-        }
-      );
-    } else {
+    if (this.formGroup.invalid) {
       this.toastr.error(
         'Por favor, complete todos los campos requeridos!',
         '',
@@ -232,7 +140,95 @@ export class FormClientComponent implements OnInit {
           positionClass: 'toast-bottom-right',
         }
       );
+      return;
     }
+
+    const clientData = this.formGroup.value;
+    const clientCuit = this.formGroup.get('cuit')?.value;
+    const agregarCuentaCorriente = this.formGroup.get(
+      'agregarCuentaCorriente'
+    )?.value;
+
+    // Inicializar cuentaCorriente si no está presente en el formulario
+    let cuentaCorriente = this.formGroup.get('cuentaCorriente')?.value || null;
+
+    // Verificamos si el cliente existe antes de continuar
+    this.existeCliente(clientCuit)
+      .pipe(
+        switchMap((existe) => {
+          if (existe) {
+            this.toastr.error('El CUIT ingresado ya existe.');
+            return throwError(() => new Error('El CUIT ingresado ya existe.'));
+          }
+
+          console.log('Datos del cliente:', clientData);
+
+          // Excluir cuentaCorriente si no se seleccionó "agregarCuentaCorriente"
+          let { agregarCuentaCorriente, ...clientInfo } = clientData;
+
+          if (!agregarCuentaCorriente) {
+            cuentaCorriente = null; // Asegurar que no se envía cuentaCorriente si no fue marcada
+            delete clientInfo.cuentaCorriente;
+          } else {
+            if (!cuentaCorriente) {
+              clientInfo.cuentaCorriente = {
+                client: { cuit: clientCuit },
+                saldo: 0, // Inicia con saldo 0
+              };
+            } else {
+              clientInfo.cuentaCorriente.client = { cuit: clientCuit };
+            }
+          }
+
+          // Guardar cliente
+          return this.clientService.addClient(clientInfo);
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          console.log('Cliente guardado correctamente:', data);
+          this.dialogRef.close(data);
+          this.showSuccess();
+
+          // Solo guarda cuenta corriente si el usuario marcó la opción
+          if (agregarCuentaCorriente && cuentaCorriente) {
+            this.ctaCteService.save(cuentaCorriente).subscribe({
+              next: (ctaCteData) => {
+                console.log('Cuenta corriente guardada:', ctaCteData);
+              },
+              error: (ctaCteError) => {
+                console.error(
+                  'Error al guardar la cuenta corriente:',
+                  ctaCteError
+                );
+                this.toastr.error('Error al guardar la cuenta corriente.', '', {
+                  timeOut: 5000,
+                  positionClass: 'toast-bottom-right',
+                });
+              },
+            });
+          }
+        },
+        error: (error) => {
+          console.error('Error al guardar el cliente:', error);
+          this.toastr.error('Hubo un error al guardar el cliente.', '', {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-right',
+          });
+        },
+      });
+  }
+
+  // Método corregido para verificar si el cliente existe
+  existeCliente(cuit: string): Observable<boolean> {
+    return this.clientService.getClientByDni(cuit).pipe(
+      map((client) => !!client), // Devuelve true si existe, false si no
+      catchError((error) => {
+        console.error('Error al buscar el cliente por CUIT:', error);
+
+        return of(false);
+      })
+    );
   }
 
   showSuccess() {
@@ -246,7 +242,7 @@ export class FormClientComponent implements OnInit {
     if (this.formGroup.valid) {
       // Obtenemos los datos del formulario
       const clientData = this.formGroup.value;
-      this.getDataClient = clientData; 
+      this.getDataClient = clientData;
       console.log(clientData, 'este es el id del cliente');
 
       // Desestructuramos los datos del formulario
@@ -256,15 +252,16 @@ export class FormClientComponent implements OnInit {
       if (isChecked) {
         // Si el cliente tiene cuenta corriente en el formulario y está marcada la opción, la asignamos
 
-      
         if (cuentaCorriente) {
-            this.ctaCteService.updateCtaCte(this.data.updateClient,cuentaCorriente).subscribe(data => {
-              data.saldo = data.saldo;
-            }, error => {
-            });
-         
-          }
-         else {
+          this.ctaCteService
+            .updateCtaCte(this.data.updateClient, cuentaCorriente)
+            .subscribe(
+              (data) => {
+                data.saldo = data.saldo;
+              },
+              (error) => {}
+            );
+        } else {
           // Si la opción no está marcada, eliminamos la cuenta corriente
           clientInfo.cuentaCorriente = null;
         }
@@ -319,7 +316,10 @@ export class FormClientComponent implements OnInit {
                     }
                   },
                   (error) => {
-                    console.error('Error al buscar el cliente por cuit:', error);
+                    console.error(
+                      'Error al buscar el cliente por cuit:',
+                      error
+                    );
                     this.toastr.error('Error al buscar el cliente.', '', {
                       timeOut: 5000,
                       positionClass: 'toast-bottom-right',
@@ -349,13 +349,13 @@ export class FormClientComponent implements OnInit {
     }
   }
 
-    cancel() {
-      this.dialogRef.close();
-    }
-
-    onInputChange(event: any, controlName: string) {
-      const input = event.target.value.replace(/[^0-9]/g, '');
-      this.formGroup.get(controlName)?.setValue(input);
-    }
+  cancel() {
+    this.dialogRef.close();
   }
+
+  onInputChange(event: any, controlName: string) {
+    const input = event.target.value.replace(/[^0-9]/g, '');
+    this.formGroup.get(controlName)?.setValue(input);
+  }
+}
 

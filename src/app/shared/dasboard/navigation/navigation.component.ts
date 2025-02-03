@@ -12,6 +12,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from "../dashboard/dashboard.component";
 import { VerticalMenuComponent } from "../vertical-menu/vertical-menu.component";
 import { TokenService } from '../../../services/token.service';
+import { IconComponent } from "../icon/icon.component";
 
 
 @Component({
@@ -28,7 +29,7 @@ import { TokenService } from '../../../services/token.service';
     AsyncPipe,
     DashboardComponent,
     VerticalMenuComponent,
-  
+    IconComponent
 ]
 })
 export class NavigationComponent  implements OnInit {
