@@ -74,7 +74,6 @@ export class CashClosingComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if (result == true) {
         this.cajaService.closeCaja(id).subscribe((data) => {
           console.log(data);
