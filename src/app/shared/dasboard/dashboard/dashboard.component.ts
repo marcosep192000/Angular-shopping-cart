@@ -12,6 +12,7 @@ import { FastAccesComponent } from "../fastAcces/fast-acces/fast-acces.component
 import { ApiDolarComponent } from "../../api-dolar/api-dolar.component";
 import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppComponent } from "../../../app.component";
+import { CardsIndexComponent } from "../cards-index/cards-index.component";
 
 
 @Component({
@@ -20,7 +21,6 @@ import { AppComponent } from "../../../app.component";
     styleUrl: './dashboard.component.css',
     standalone: true,
     imports: [
-   
     MatGridListModule,
     MatMenuModule,
     MatIconModule,
@@ -29,7 +29,8 @@ import { AppComponent } from "../../../app.component";
     FastAccesComponent,
     ApiDolarComponent,
     MatProgressSpinnerModule,
-    AppComponent
+    AppComponent,
+    CardsIndexComponent
 ]
 })
 export class DashboardComponent {
