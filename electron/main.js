@@ -19,47 +19,40 @@ app.whenReady().then(() => {
   springProcess.stdout.on("data", (data) => {
     console.log(`Spring Boot: ${data}`);
   });
-
   springProcess.stderr.on("data", (data) => {
     console.error(`Error en Spring Boot: ${data}`);
   });
-
   // 2️⃣ Iniciar Angular en modo desarrollo
   angularProcess = spawn("npm", ["start"], { shell: true });
-
   angularProcess.stdout.on("data", (data) => {
     console.log(`Angular: ${data}`);
   });
-
   angularProcess.stderr.on("data", (data) => {
     console.error(`Error en Angular: ${data}`);
   });
-
   // 3️⃣ Crear ventana de Electron cuando Angular esté listo
   setTimeout(() => {
     mainWindow = new BrowserWindow({
       width: 1920,
       height: 980,
+      frame: true, // Eliminar los bordes estándar (ventana sin marco)
+      resizable: false,  //Permite que la ventana sea redimensionable
       webPreferences: {
-        nodeIntegration: false,
+      nodeIntegration: false,
       },
     });
-
     mainWindow.loadURL("http://localhost:4200"); // Angular en modo desarrollo
-
     mainWindow.on("closed", () => {
       mainWindow = null;
       cerrarProcesos();
     });
   }, 10000); // Espera 10 segundos para asegurarse de que Angular y Spring Boot arrancan
 });
-
 // Cerrar procesos cuando Electron se cierre
 app.on("window-all-closed", () => {
   cerrarProcesos();
   if (process.platform !== "darwin") app.quit();
 });
-
 // Función para matar Spring Boot y Angular
 function cerrarProcesos() {
   if (springProcess) {
