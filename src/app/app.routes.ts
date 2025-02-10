@@ -4,7 +4,6 @@ import { ListProductComponent } from './pages/crud-product/list-product/list-pro
 import { ListClientComponent } from './pages/crud-client/list-client/list-client.component';
 import { NewSaleComponent } from './pages/crud-sale/new-sale/new-sale.component';
 import { LoginComponent } from './pages/login/login.component';
-
 import { RegistroComponent } from './pages/registro/registro.component';
 import { NavigationComponent } from './shared/dasboard/navigation/navigation.component';
 import { authGuard } from './auth/guard/auth.guard';
@@ -14,15 +13,12 @@ import { ListSupplierComponent } from './pages/crud-supplier/form-supplier/list-
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-
   { path: 'registro', component: RegistroComponent },
-  // Agrupar rutas protegidas dentro del dashboard
-
+  // Agrupar rutas protegidas dentro del dashboa
   {
     path: 'dashboard',
     component: NavigationComponent,
     canActivate: [authGuard],
-
     children: [
       { path: 'cash-closing', component: CashClosingComponent },
       { path: 'category-list', component: ListCategoryComponent },
@@ -32,6 +28,5 @@ export const routes: Routes = [
       { path: 'supplier-list', component: ListSupplierComponent },
     ],
   },
-
   { path: '**', redirectTo: '/login' },
 ];
