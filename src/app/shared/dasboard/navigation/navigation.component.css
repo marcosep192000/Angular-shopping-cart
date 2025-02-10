@@ -1,5 +1,9 @@
 .sidenav-container {
   height: 100%;
+    box-shadow: 21px 20px 24px 0px rgba(0,0,0,0.39);
+-webkit-box-shadow: 21px 20px 24px 0px rgba(0,0,0,0.39);
+-moz-box-shadow: 21px 20px 24px 0px rgba(0,0,0,0.39);
+
 }
 
 .sidenav {
