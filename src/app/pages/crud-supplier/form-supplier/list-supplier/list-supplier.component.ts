@@ -49,6 +49,7 @@ export class ListSupplierComponent implements OnInit {
   suppliers: Supplier[] = [];
   displayedColumns: string[] = [
     'id',
+    'cuit',
     'name',
     'email',
     'phone',
