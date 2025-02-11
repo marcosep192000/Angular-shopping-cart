@@ -1,6 +1,10 @@
 {
   "name": "inventario-pixels",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "Inventario Pixels",
+  "author": "Your Name <your-email@example.com>",
+  "homepage": "https://github.com/your-username/inventario-pixels",
+  
  "main": "./electron/main.js",
   "scripts": {
     "electron": "electron electron/main.js", 
@@ -57,7 +61,7 @@
   },
   "build": {
     "appId": "com.miempresa.inventario-pixels",
-    "productName": "InventarioPixels",
+    "productName": "Pixels",
     "files": [
       "dist/**/*",
       "electron/**/*"
@@ -68,7 +72,7 @@
   
     "win": {
       "target": "nsis",
-      "icon": "path_to_icon.ico" 
+      "icon": "./src/assets/icons/ICONOPIXELS.png" 
     },
     "mac": {
       "icon": "path_to_icon.icns" 
